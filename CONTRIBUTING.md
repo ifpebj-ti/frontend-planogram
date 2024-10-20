@@ -9,7 +9,7 @@ O GitHub Flow é um modelo de branching (ramificação) simples e eficaz para o 
    * Clone o repositório remoto para sua máquina local
    * Comando:
      ```bash
-     git clone https://github.com/ifpebj-ti/Frontend-Planogram.git
+     git clone https://github.com/ifpebj-ti/frontend-planogram.git
      ```
 2. **Criar uma Branch:**
    * Crie uma nova branch para cada funcionalidade ou correção.
