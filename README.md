@@ -12,6 +12,9 @@ Para a contribuição do projeto foi adotado o fluxo de trabalho GitHub Flow.
 Visualizar o passo a passo em: [Fluxo de Contribuição](https://github.com/ifpebj-ti/Frontend-Planogram/blob/main/CONTRIBUTING.md)
 
 ## Prototipação
-Você pode visualizar o protótipo em: [Protótipo]() 
+Você pode visualizar o protótipo em: [Protótipo](https://www.figma.com/design/TffeoWIOwNMcYaGlyzi36x/Planograma) 
+
+## Wiki
+Para mais informações e documentação do projeto, acesse nossa [Wiki](https://github.com/ifpebj-ti/frontend-planogram/wiki).
 
 ### Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](https://github.com/ifpebj-ti/Frontend-Planograma?tab=MIT-1-ov-file) para obter mais informações.
