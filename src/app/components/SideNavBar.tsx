@@ -21,26 +21,25 @@ export default function SideNavBar() {
       <div className="menu-content">
         <div className="menu-item">
           <Link href="/">
-          <img src="/Home.svg" alt="Home" width="24" height="24" />
-          <img src="/Home1.svg" alt="Import Icon Hover" className="hover" />
+          <FaHome size={24} className="icon" />
             {isOpen && <span>Início</span>}
           </Link>
         </div>
         <div className="menu-item">
           <Link href="/importar">
-          <img src="/import.svg" alt="Importar" width="24" height="24" />
+          <FaFileImport size={24} className="icon" />
             {isOpen && <span>Importar</span>}
           </Link>
         </div>
         <div className="menu-item">
           <Link href="/configuracoes">
-          <img src="/Config.svg" alt="Configuração" width="24" height="24" />
+          <FaCog size={24} className="icon" />
             {isOpen && <span>Configurações</span>}
           </Link>
         </div>
         <div className="menu-item">
           <Link href="/sair">
-          <img src="/Sair.svg" alt="Sair" width="24" height="24" />
+          <FaSignOutAlt size={24} className="icon" />
             {isOpen && <span>Sair</span>}
           </Link>
         </div>

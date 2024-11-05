@@ -36,8 +36,20 @@
   align-items: center;
 }
 
+.icon {
+  margin-right: 0.5rem; /* Espaçamento entre o ícone e o texto */
+  width: 24px;
+  height: 24px;
+}
+
+
+.menu-item span {
+  font-size: 1rem;
+  display: inline-block;
+}
 .menu-item {
   display: flex; /* Exibe o conteúdo em uma linha */
+  flex-direction: row;
   align-items: center; /* Alinha o ícone e o texto verticalmente no centro */
   padding: 1rem;
   color: white;
@@ -45,50 +57,25 @@
   width: 100%;
   transition: background-color 0.3s;
 }
-
-.menu-item img {
-  margin-right: 0.5rem; /* Espaçamento entre o ícone e o texto */
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-}
-
-.menu-item span {
-  font-size: 1rem;
-  display: inline-block;
-}
-.menu-item img.default {
-  opacity: 1;
-}
-
-.menu-item img.hover {
-  opacity: 0;
-  position: absolute; /* Remove o impacto da segunda imagem no layout */
-}
-
-/* Exibir a imagem de hover ao passar o mouse */
-.menu-item:hover img.default {
-  opacity: 0; /* Oculta a imagem padrão */
-}
-
-.menu-item:hover img.hover {
-  margin-right: 0.5rem; 
-  opacity: 1; /* Exibe a imagem de hover */
-}
-
 .menu-item:hover {
   background-color: var(--selecionado); /* Cor de fundo ao passar o mouse */
-  color: black;
+  color: black; /* Muda a cor do texto e do ícone ao passar o mouse */
 }
-.menu-item:hover img{
-  /* Cor de fundo ao passar o mouse */
-  color: black;
+
+.menu-item .icon {
+  margin-right: 0.5rem; /* Espaçamento entre o ícone e o texto */
+  transition: transform 0.3s ease, color 0.3s ease; /* Suaviza a transformação e a cor no hover */
+}
+
+.menu-item:hover .icon {
+  transform: scale(1.1); /* Aumenta um pouco o tamanho do ícone no hover */
+  color: black; /* Muda a cor do ícone no hover */
 }
 
 /* Ajustes para a responsividade */
 @media (max-width: 768px) {
   .sidenav {
-    transform: translateX(-100%); /* Menu fechado */
+    transform: translateX(0%); /* Menu fechado */
     transition: transform 0.3s ease;
   }
   
