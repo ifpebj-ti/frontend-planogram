@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./ 
+    ports:
+      - "3000:3000" 
+    environment:
+      - API_URL=${API_URL} 
+    networks:
+      - planograma-network
+
+networks:
+  planograma-network:
+    external: true
+    
