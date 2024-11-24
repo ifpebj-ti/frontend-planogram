@@ -1,9 +1,9 @@
 /*!***************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/app/styles/SideNavBar.css ***!
   \***************************************************************************************************************************************************************************************************************************************************************************/
-/* Estilos principais do menu */
+
 .sidenav {
-  width: 60px; /* Largura padrão (fechado) */
+  width: 60px; 
   background-color: var(--principal);
   color: white;
   height: 100vh;
@@ -17,10 +17,9 @@
 }
 
 .sidenav.expanded {
-  width: 200px; /* Largura quando expandido */
+  width: 200px;
 }
 
-/* Botão de alternância para expandir o menu */
 .toggle-button {
   background: none;
   border: none;
@@ -37,7 +36,7 @@
 }
 
 .icon {
-  margin-right: 0.5rem; /* Espaçamento entre o ícone e o texto */
+  margin-right: 0.5rem; 
   width: 24px;
   height: 24px;
 }
@@ -48,9 +47,9 @@
   display: inline-block;
 }
 .menu-item {
-  display: flex; /* Exibe o conteúdo em uma linha */
+  display: flex; 
   flex-direction: row;
-  align-items: center; /* Alinha o ícone e o texto verticalmente no centro */
+  align-items: center; 
   padding: 1rem;
   color: white;
   text-decoration: none;
@@ -58,31 +57,108 @@
   transition: background-color 0.3s;
 }
 .menu-item:hover {
-  background-color: var(--selecionado); /* Cor de fundo ao passar o mouse */
-  color: black; /* Muda a cor do texto e do ícone ao passar o mouse */
+  background-color: var(--selecionado);
+  color: black; 
 }
 
 .menu-item .icon {
-  margin-right: 0.5rem; /* Espaçamento entre o ícone e o texto */
-  transition: transform 0.3s ease, color 0.3s ease; /* Suaviza a transformação e a cor no hover */
+  margin-right: 0.5rem; 
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .menu-item:hover .icon {
-  transform: scale(1.1); /* Aumenta um pouco o tamanho do ícone no hover */
-  color: black; /* Muda a cor do ícone no hover */
+  transform: scale(1.1); 
+  color: black; 
 }
-
-/* Ajustes para a responsividade */
 @media (max-width: 768px) {
   .sidenav {
-    transform: translateX(0%); /* Menu fechado */
+    transform: translateX(0%);
     transition: transform 0.3s ease;
   }
   
   .sidenav-open {
-    transform: translateX(0); /* Menu aberto */
+    transform: translateX(0);
   }
 }
 
   
+  
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/app/styles/Home.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+
+.shelf-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #e3e3e3; 
+    min-height: 100vh;
+  }
+  
+  .shelf-selector h1 {
+    font-size: 1.5rem;
+    color: #666666;
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-top: 5%;
+  }
+  
+  .shelf-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    align-items: center;
+    margin-top: 5%;
+  }
+  
+
+  .shelf-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 5px; 
+    width: 100%;
+  }
+  
+  .shelf-number {
+    background-color: #2b4b7e;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    margin-right: -1rem;
+    font-size: 13px;
+  }
+  
+  .shelf-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+  }
+  
+  .shelf-item {
+    background-color: #2b4b7e;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .footer {
+    margin-top: auto;
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+  }
   
