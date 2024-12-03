@@ -6,30 +6,11 @@ import SideNavBar from "./components/SideNavBar";
 import Inicial from "./components/home";
 import ShelfSelector from "./components/estante";
 
-const shelfData = [
-  {
-    section: 1,
-    items: [
-      { id: 1, name: 'Prateleira 1' },
-      { id: 2, name: 'Prateleira 2' },
-      { id: 3, name: 'Prateleira 3' },
-      { id: 4, name: 'Prateleira 4' },
-    ],
-  },
-  {
-    section: 2,
-    items: [
-      { id: 1, name: 'Prateleira 1' },
-      { id: 2, name: 'Prateleira 2' },
-    ],
-  },
-  {
-    section: 3,
-    items: [
-      { id: 1, name: 'Prateleira 1' },
-      { id: 2, name: 'Prateleira 2' },
-    ],
-  },
+const shelvesData = [
+  { id: 1, link: '/prateleira1', name: 'Prateleira 1' },
+  { id: 2, link: '/prateleira/2', name: 'Prateleira 2' },
+  { id: 3, link: '/prateleira/3', name: 'Prateleira 3' },
+  { id: 4, link: '/prateleira/4', name: 'Prateleira 4' },
 ];
 
 export default function Home() {
@@ -41,7 +22,7 @@ export default function Home() {
         <meta name="descição" content="Sistema planograma"/>
       </Head>
       <SideNavBar/>
-      <ShelfSelector shelves={shelfData} />
+      <ShelfSelector shelves={shelvesData} />
     </div>
   );
 }

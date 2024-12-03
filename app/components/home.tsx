@@ -11,20 +11,20 @@ export default function ShelfSelector() {
       <div className="shelf-container">
         {[1, 2, 3].map((section) => (
           <div key={section} className="shelf-section">
-            <Link href={`/prateleira/${section}`} passHref>
-              <button className="shelf-number">Prateleira {section}</button>
+            <Link href={`/prateleira1`} passHref>
+              <button className="shelf-number">Prateleira 1</button>
             </Link>
 
             <div className="shelf-items">
               <Link href={`/prateleira/${section}/1`} passHref>
-                <button className="shelf-item">Prateleira 1</button>
+                <button className="shelf-item">Prateleira 2</button>
               </Link>
               <Link href={`/prateleira/${section}/2`} passHref>
-                <button className="shelf-item">Prateleira 2</button>
+                <button className="shelf-item">Prateleira 3</button>
               </Link>
             </div>
             <Link href={`/prateleira/${section}`} passHref>
-              <button className="shelf-number">Prateleira {section}</button>
+              <button className="shelf-number">Prateleira 4</button>
             </Link>
           </div>
         ))}
