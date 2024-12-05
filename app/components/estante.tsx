@@ -17,7 +17,8 @@ export default function ShelfSelector({ shelves }: ShelfSelectorProps) {
   
   return (
     <div className="shelf-selector">
-      <h1>Selecione a prateleira que deseja visualizar</h1>
+      <h1>Bem vindo, ao Slotex</h1>
+      <h2>Selecione a prateleira que deseja visualizar</h2>
 
       <div className="shelf-container">
         {shelves.map((shelf) => (

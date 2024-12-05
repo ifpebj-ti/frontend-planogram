@@ -97,12 +97,21 @@
   }
   
   .shelf-selector h1 {
+    font-size: 2rem;
+    color: #002135;
+    text-align: justify;
+    margin-top: 5%;
+    font-weight: bold;
+  }
+
+
+  .shelf-selector h2 {
     font-size: 1.5rem;
     color: #666666;
     margin-bottom: 2rem;
-    text-align: center;
-    margin-top: 5%;
+    text-align: justify;
   }
+
   
   .shelf-container {
     display: flex;

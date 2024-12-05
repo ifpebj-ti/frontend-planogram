@@ -6,16 +6,22 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/prateleira1/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/prateleira1/page.css",
+      "static/chunks/app/prateleira1/page.js"
+    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/prateleira1/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/prateleira1/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
