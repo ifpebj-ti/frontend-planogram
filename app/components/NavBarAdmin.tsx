@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import { FaHome, FaFileImport, FaCog, FaSignOutAlt } from 'react-icons/fa'; // ícones do react-icons
+import Image from 'next/image';
+import { FaHome, FaFileImport, FaCog, FaSignOutAlt } from 'react-icons/fa'; 
 
 import '../styles/SideNavBar.css';
 
@@ -11,11 +12,11 @@ export default function SideNavBar() {
   return (
     <div className={`sidenav ${isOpen ? 'expanded' : ''}`}>
       <button className="toggle-button" onClick={() => setIsOpen(!isOpen)}>
-      <img
+      <Image
           src={isOpen ? '/assets/images/logo.png' : '/assets/images/logo2.png'}
           alt="Menu Toggle Icon"
-          width="90%"
-          height="70%"
+          width={90} 
+          height={70} 
         />
       </button>
       <div className="menu-content">

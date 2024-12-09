@@ -1,4 +1,3 @@
-  
 import '../styles/Home.css';
 
 import Link from 'next/link';
@@ -14,7 +13,6 @@ interface ShelfSelectorProps {
 }
 
 export default function ShelfSelector({ shelves }: ShelfSelectorProps) {
-  
   return (
     <div className="shelf-selector">
       <h1>Bem vindo, ao Slotex</h1>
@@ -22,20 +20,20 @@ export default function ShelfSelector({ shelves }: ShelfSelectorProps) {
 
       <div className="shelf-container">
         {shelves.map((shelf) => (
-          <div className="shelf-section">
-            <Link key={shelf.id} href={shelf.link} passHref>
+          <div key={shelf.id} className="shelf-section">
+            <Link href={shelf.link} passHref>
               <button className="shelf-number">{shelf.name}</button>
             </Link>
 
             <div className="shelf-items">
-              <Link key={shelf.id} href={shelf.link} passHref>
+              <Link href={shelf.link} passHref>
                 <button className="shelf-item">{shelf.name}</button>
               </Link>
-              <Link key={shelf.id}  href={shelf.link} passHref>
+              <Link href={shelf.link} passHref>
                 <button className="shelf-item">{shelf.name}</button>
               </Link>
             </div>
-            <Link key={shelf.id} href={shelf.link} passHref>
+            <Link href={shelf.link} passHref>
               <button className="shelf-number">{shelf.name}</button>
             </Link>
           </div>
@@ -47,7 +45,6 @@ export default function ShelfSelector({ shelves }: ShelfSelectorProps) {
     </div>
   );
 }
-
 
 
 
