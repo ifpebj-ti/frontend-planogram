@@ -1,0 +1,28 @@
+.Prin{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 3%;
+    flex-direction: column;
+    font-size: larger;
+    
+}
+.centro{
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    flex-direction: row;
+    
+}
+.Prin h1 {
+    font-size: 2rem;
+    color: #21557A;
+    text-align: justify;
+    font-weight: bold;
+}
+.footer {
+    margin-top: auto;
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+}
