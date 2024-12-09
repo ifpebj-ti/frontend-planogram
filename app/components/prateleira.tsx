@@ -1,13 +1,23 @@
+'use client';
+
 import React from 'react';
 import Button from './Button/page';
 import IndicatorBox from './IndicatorBox/page';
 import LegendBox from './LegendBox/page';
+import { useRouter } from 'next/navigation';
+import ButtonV from '../components/ButtonVisual/page';
 
 import '../styles/prateleira.css';
 
 export default function Shelf() {
   const handlePress = (product: string) => {
     alert(`Você clicou no produto: ${product}`);
+  };
+
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    router.push('/visualizar'); 
   };
 
   return (
@@ -41,12 +51,16 @@ export default function Shelf() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         gap: '20px',
         backgroundColor: '#F5F5F5',
-        padding: '20px',
+        padding: '15px',
         }}
         >
-            {/* Linha dos indicadores */}
+          <div className="flex justify-center items-center h-screen bg-gray-100 m-8">
+            <ButtonV label="Visualizar" onClick={handleRedirect} />
+            <ButtonV label="Editar" onClick={handleRedirect} />
+          </div>
             <div style={{ display: 'flex', gap: '20px' }}>
             <IndicatorBox title="Total de slots" value={15} />
             <IndicatorBox title="Total de produtos" value={250} />

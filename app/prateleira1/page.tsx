@@ -15,10 +15,15 @@ export default function Prateleira1(){
             <meta name="descição" content="Sistema planograma"/>
             </Head>
             <SideNavBar/>
-            <div className='centro'>
-                <h1 className='h1T'>Visão Geral: Prateleira 01</h1>
-                <Prateleira/>
+            <div className='Prin'>
+                <h1>Visão Geral: Prateleira 01</h1>
+                <div className='centro'>
+                    <Prateleira/>
+                </div>
             </div>
+            <footer className="footer">
+                <p>Todos os direitos reservados</p>
+            </footer>
         </div>
     )
 }
