@@ -39,17 +39,6 @@ jobs:
           docker build -t mariagabrielly/front-planograma:latest .
           docker tag mariagabrielly/front-planograma:latest mariagabrielly/front-planograma:latest
 
-      - name: Install Docker Scout
-        run: |
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/trusted.gpg.d/docker.asc
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-          sudo apt-get update
-          sudo apt-get install docker-scout
-
-      - name: Analyze Docker image with Docker Scout
-        run: |
-          docker scout quickcheck mariagabrielly/front-planograma:latest
-
       - name: Push Docker image to Docker Hub
         run: docker push mariagabrielly/front-planograma:latest
         
