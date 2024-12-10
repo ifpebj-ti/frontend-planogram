@@ -15,8 +15,8 @@ export default function SideNavBar() {
       <Image
           src={isOpen ? '/assets/images/logo.png' : '/assets/images/logo2.png'}
           alt="Menu Toggle Icon"
-          width={90} 
-          height={70} 
+          width={200} 
+          height={190} 
         />
       </button>
       <div className="menu-content">

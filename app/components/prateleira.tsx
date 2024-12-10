@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import Button from './Button/page';
-import IndicatorBox from './IndicatorBox/page';
-import LegendBox from './LegendBox/page';
+import Button from './Button/Button';
+import IndicatorBox from './IndicatorBox/IndicatorBox';
+import LegendBox from './LegendBox/LegendBox';
 import { useRouter } from 'next/navigation';
-import ButtonV from '../components/ButtonVisual/page';
+import ButtonV from './ButtonVisual/ButtonV';
 
 import '../styles/prateleira.css';
 
