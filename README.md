@@ -1,4 +1,10 @@
 # Frontend - Planograma
+![CI/CD](https://github.com/ifpebj-ti/frontend-planogram/actions/workflows/main.yml/badge.svg)
+![Last commit](https://img.shields.io/github/last-commit/ifpebj-ti/frontend-planogram)
+![Issues](https://img.shields.io/github/issues/ifpebj-ti/frontend-planogram)
+![PRs open](https://img.shields.io/github/issues-pr/ifpebj-ti/frontend-planogram)
+![Repo size](https://img.shields.io/github/repo-size/ifpebj-ti/frontend-planogram)
+
 ## Introdução
 Este repositório contém o frontend do sistema Planograma para Farmácias. A aplicação visa aprimorar o layout e a distribuição dos produtos nas prateleiras, visando aumentar as vendas e a eficiência operacional, considerando o controle básico de estoque por slots dos produtos.
 
