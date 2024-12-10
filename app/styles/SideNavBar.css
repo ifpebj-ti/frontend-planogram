@@ -1,10 +1,12 @@
-
 .sidenav {
   width: 60px; 
   background-color: var(--principal);
   color: white;
   height: 100vh;
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; 
   transition: width 0.3s;
   overflow: hidden;
   display: flex;
@@ -15,6 +17,7 @@
 
 .sidenav.expanded {
   width: 200px;
+  background-color: #21557A; 
 }
 
 .toggle-button {
@@ -23,6 +26,7 @@
   color: white;
   cursor: pointer;
   margin-bottom: 1.5rem;
+  z-index: 1001; 
 }
 
 .menu-content {
@@ -38,11 +42,11 @@
   height: 24px;
 }
 
-
 .menu-item span {
   font-size: 1rem;
   display: inline-block;
 }
+
 .menu-item {
   display: flex; 
   flex-direction: row;
@@ -53,6 +57,7 @@
   width: 100%;
   transition: background-color 0.3s;
 }
+
 .menu-item:hover {
   background-color: var(--selecionado);
   color: black; 
@@ -67,6 +72,7 @@
   transform: scale(1.1); 
   color: black; 
 }
+
 @media (max-width: 768px) {
   .sidenav {
     transform: translateX(0%);
@@ -77,6 +83,3 @@
     transform: translateX(0);
   }
 }
-
-  
-  
