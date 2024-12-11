@@ -1,0 +1,256 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/SideNavBar.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+.sidenav {
+  width: 60px; 
+  background-color: var(--principal);
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  transition: width 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.sidenav.expanded {
+  width: 200px;
+  background-color: #21557A; 
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  z-index: 1001; 
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 0.5rem; 
+  width: 24px;
+  height: 24px;
+}
+
+.menu-item span {
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.menu-item {
+  display: flex; 
+  flex-direction: row;
+  align-items: center; 
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+  background-color: var(--selecionado);
+  color: black; 
+}
+
+.menu-item .icon {
+  margin-right: 0.5rem; 
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover .icon {
+  transform: scale(1.1); 
+  color: black; 
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    transform: translateX(0%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sidenav-open {
+    transform: translateX(0);
+  }
+}
+
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/ButtonVisual/styles.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.button {
+    background-color: #1e3a8a; /* Azul escuro */
+    color: white; /* Texto branco */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 20px;
+  }
+  
+  .button:hover {
+    background-color: #3b82f6; /* Azul mais claro */
+  }
+  
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/TabelaV/style.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  
+  .card {
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+
+  .header {
+    background-color: #ffff; 
+    color: white;
+    padding: 1rem;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  
+  .headerTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: #21557A;
+    font-size: 3rem;
+    justify-content: flex-end;
+    cursor: pointer;
+    left: 100%;
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+    padding: 1rem;
+    background-color: #f9fafb;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tableHead {
+    background-color: #21557A;
+    color: white;
+  }
+  
+  .tableCell {
+    border: 1px solid #21557A;
+    padding: 0.5rem;
+    text-align: center;
+  }
+ 
+  .rowOdd {
+    background-color: #a5ebcc;
+  }
+  
+  
+  .footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    background-color: #f9fafb;
+  }
+  
+  
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/styles/prateleira.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+.containerPratileira1{
+    display: flex;
+    justify-content: center;
+    background-color: #EFF0F0;
+
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/prateleira1/style.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************/
+.total{
+    background-color: #EFF0F0;
+}
+
+.Prin{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding: 3%;
+    flex-direction: column;
+    font-size: larger;
+    
+}
+.centro{
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    flex-direction: row;
+    
+}
+.Prin h1 {
+    font-size: 2rem;
+    color: #21557A;
+    text-align: justify;
+    font-weight: bold;
+}
+.footer {
+    margin-top: auto;
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+}
+

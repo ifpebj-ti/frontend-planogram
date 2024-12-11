@@ -1,0 +1,99 @@
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  
+  .card {
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+
+  .header {
+    background-color: #ffff; 
+    color: white;
+    padding: 1rem;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  
+  .headerTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: #21557A;
+    font-size: 3rem;
+    justify-content: flex-end;
+    cursor: pointer;
+    left: 100%;
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+    padding: 1rem;
+    background-color: #f9fafb;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tableHead {
+    background-color: #21557A;
+    color: white;
+  }
+  
+  .tableCell {
+    border: 1px solid #21557A;
+    padding: 0.5rem;
+    text-align: center;
+  }
+ 
+  .rowOdd {
+    background-color: #a5ebcc;
+  }
+  
+  
+  .footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    background-color: #f9fafb;
+  }
+  
+  

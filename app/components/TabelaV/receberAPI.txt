@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from 'react';
+
+// Define o tipo dos dados retornados pela API
+type ShelfData = {
+  codigoSlot: string;
+  produto: string;
+  quantidade: number;
+  saida: number;
+};
+
+const ShelfView: React.FC = () => {
+  const [data, setData] = useState<ShelfData[]>([]); // Define o estado com o tipo esperado
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('URL_DA_SUA_API'); // Substitua pela URL da sua API
+        const result: ShelfData[] = await response.json(); // Declara o tipo dos dados retornados
+        setData(result);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+      <div className="w-4/5 max-w-4xl bg-white shadow-lg rounded-lg relative">
+        {/* Header */}
+        <div className="bg-blue-700 text-white text-center py-4 rounded-t-lg">
+          <h1 className="text-lg font-bold">Prateleira 01</h1>
+          <button className="absolute top-4 right-4 text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Table */}
+        <div className="overflow-x-auto">
+          {loading ? (
+            <p className="text-center py-4">Carregando...</p>
+          ) : (
+            <table className="w-full border-collapse border border-gray-200">
+              <thead>
+                <tr className="bg-blue-700 text-white">
+                  <th className="border border-gray-200 px-4 py-2">Cód Slot</th>
+                  <th className="border border-gray-200 px-4 py-2">Produto</th>
+                  <th className="border border-gray-200 px-4 py-2">Qntd.</th>
+                  <th className="border border-gray-200 px-4 py-2">Saída</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index} className="text-center bg-green-200">
+                    <td className="border border-gray-200 px-4 py-2">
+                      {item.codigoSlot || '-'}
+                    </td>
+                    <td className="border border-gray-200 px-4 py-2">
+                      {item.produto || '-'}
+                    </td>
+                    <td className="border border-gray-200 px-4 py-2">
+                      {item.quantidade || '-'}
+                    </td>
+                    <td className="border border-gray-200 px-4 py-2">
+                      {item.saida || '-'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="text-center py-2 text-gray-500 text-sm">
+          <p>Todos os direitos reservados - Versão 1.0</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShelfView;
