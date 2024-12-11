@@ -1,48 +1,32 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-5cf53edd3de67ae1.js",
-      "static/chunks/4bd1b696-cab4ecae4e217186.js",
-      "static/chunks/517-6facfe6d6070aca2.js",
-      "static/chunks/main-app-3975e81fa9b2ee11.js",
-      "static/chunks/app/_not-found/page-91e1014bed269647.js"
-    ],
     "/layout": [
-      "static/chunks/webpack-5cf53edd3de67ae1.js",
-      "static/chunks/4bd1b696-cab4ecae4e217186.js",
-      "static/chunks/517-6facfe6d6070aca2.js",
-      "static/chunks/main-app-3975e81fa9b2ee11.js",
-      "static/css/61a6011bfe5383c3.css",
-      "static/chunks/app/layout-6f794d4b24454f74.js"
-    ],
-    "/prateleira1/page": [
-      "static/chunks/webpack-5cf53edd3de67ae1.js",
-      "static/chunks/4bd1b696-cab4ecae4e217186.js",
-      "static/chunks/517-6facfe6d6070aca2.js",
-      "static/chunks/main-app-3975e81fa9b2ee11.js",
-      "static/css/84af0ce96a20af51.css",
-      "static/css/6c80c0283ee7fe53.css",
-      "static/chunks/8e1d74a4-16cd92f5a5d9f53e.js",
-      "static/chunks/184-3173e07203006740.js",
-      "static/chunks/app/prateleira1/page-2961381387db3a02.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-5cf53edd3de67ae1.js",
-      "static/chunks/4bd1b696-cab4ecae4e217186.js",
-      "static/chunks/517-6facfe6d6070aca2.js",
-      "static/chunks/main-app-3975e81fa9b2ee11.js",
-      "static/css/84af0ce96a20af51.css",
-      "static/css/163dd8b388ac9646.css",
-      "static/chunks/8e1d74a4-16cd92f5a5d9f53e.js",
-      "static/chunks/184-3173e07203006740.js",
-      "static/chunks/app/page-4ac587ecffc2915a.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/visualizar/page": [
-      "static/chunks/webpack-5cf53edd3de67ae1.js",
-      "static/chunks/4bd1b696-cab4ecae4e217186.js",
-      "static/chunks/517-6facfe6d6070aca2.js",
-      "static/chunks/main-app-3975e81fa9b2ee11.js",
-      "static/chunks/app/visualizar/page-a3611038e703d8aa.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/visualizar/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
+    ],
+    "/prateleira1/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/prateleira1/page.css",
+      "static/chunks/app/prateleira1/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

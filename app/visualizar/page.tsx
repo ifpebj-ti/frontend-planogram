@@ -1,5 +1,6 @@
 // pages/visualizar.jsx
 import React from 'react';
+import TabelaV from '../components/TabelaV/TabelaV';
 
 const Visualizar = () => {
   return (

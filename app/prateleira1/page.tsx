@@ -9,7 +9,7 @@ import './style.css'
 
 export default function Prateleira1(){
     return(
-        <div>
+        <div className='total'>
             <Head>
             <title>Prateleira 1</title>
             <meta name="descição" content="Sistema planograma"/>
