@@ -13,6 +13,7 @@ import '../styles/prateleira.css';
 export default function Shelf() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShampooModalOpen, setIsShampooModalOpen] = useState(false);
 
   const handlePress = (product: string) => {
     alert(`Você clicou no produto: ${product}`);
@@ -32,6 +33,13 @@ export default function Shelf() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+  const handleOpenShampooModal = () => {
+    setIsShampooModalOpen(true);
+  };
+
+  const handleCloseShampooModal = () => {
+    setIsShampooModalOpen(false);
+  };
 
   return (
     <div className='containerPratileira1'>
@@ -48,7 +56,7 @@ export default function Shelf() {
         >
 
             <div style={{ position: 'absolute', top: '60px', left: '40px', display: 'flex', gap: '10px' }}>
-                <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={() => handlePress('Shampoo')} />
+                <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={handleOpenShampooModal}/>
                 <Button textobotao="Condicionador" corDeFundo="#F9F571" pressione={() => handlePress('Condicionador')} />
                 <Button textobotao="Chupeta" corDeFundo="#F58282" pressione={() => handlePress('Chupeta')} />
             </div>

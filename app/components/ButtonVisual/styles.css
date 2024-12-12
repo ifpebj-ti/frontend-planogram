@@ -1,6 +1,6 @@
 .button {
-    background-color: #1e3a8a; /* Azul escuro */
-    color: white; /* Texto branco */
+    background-color: #1e3a8a; 
+    color: white;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -12,6 +12,6 @@
   }
   
   .button:hover {
-    background-color: #3b82f6; /* Azul mais claro */
+    background-color: #3b82f6; 
   }
   

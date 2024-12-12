@@ -11,7 +11,7 @@ type ShelfData = {
 };
 
 interface ShelfViewProps {
-  onClose: () => void; // Função para fechar o modal
+  onClose: () => void; 
 }
 
 const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
@@ -38,14 +38,13 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
   return (
     <div className="container">
       <div className="card">
-        {/* Cabeçalho */}
+
         <div className="header">
           <button className="closeButton" onClick={onClose}>
             &times;
           </button>
         </div>
 
-        {/* Corpo */}
         <div className="tableContainer">
           {loading ? (
             <p className="text-center py-6">Carregando...</p>
@@ -73,7 +72,6 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
           )}
         </div>
 
-        {/* Rodapé */}
         <div className="footer">
           <p>Todos os direitos reservados - Versão 1.0</p>
         </div>
