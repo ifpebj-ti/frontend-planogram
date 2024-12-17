@@ -14,9 +14,9 @@
   
   
   .card {
-    width: 80%;
+    width: 100%;
     max-width: 800px;
-    background-color: white;
+    background-color: transparent;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -36,7 +36,7 @@
   
 
   .header {
-    background-color: #ffff; 
+    background-color: transparent; 
     color: white;
     padding: 1rem;
     font-size: 1.25rem;
@@ -54,7 +54,7 @@
   .closeButton {
     background: none;
     border: none;
-    color: #21557A;
+    color: #ffff;
     font-size: 3rem;
     justify-content: flex-end;
     cursor: pointer;
@@ -64,12 +64,17 @@
   .tableContainer {
     overflow-x: auto;
     padding: 1rem;
-    background-color: #f9fafb;
+    background-color: transparent;
+
   }
   
   .table {
     width: 100%;
     border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px; 
+    overflow: hidden;
   }
   
   .tableHead {
@@ -78,9 +83,10 @@
   }
   
   .tableCell {
-    border: 1px solid #21557A;
+    border: 1.5px solid #ffff;
     padding: 0.5rem;
     text-align: center;
+    
   }
  
   .rowOdd {
@@ -93,7 +99,7 @@
     padding: 1rem;
     font-size: 0.875rem;
     color: #6b7280;
-    background-color: #f9fafb;
+    background-color: transparent;
   }
   
   
