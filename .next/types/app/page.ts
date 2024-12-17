@@ -1,4 +1,4 @@
-// File: /home/violeta/Documentos/frontend-planogram/app/page.tsx
+// File: C:\Users\elayn\Documents\Planograma\frontend-planogram\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
