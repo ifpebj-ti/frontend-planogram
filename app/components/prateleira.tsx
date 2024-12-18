@@ -6,14 +6,22 @@ import IndicatorBox from './IndicatorBox/IndicatorBox';
 import LegendBox from './LegendBox/LegendBox';
 import { useRouter } from 'next/navigation';
 import ButtonV from './ButtonVisual/ButtonV';
-import TabelaV from './TabelaV/TabelaV'
+import TabelaV from './TabelaV/TabelaV';
+import TabelaS from './TabelaSlot/TabelaS';
 
 import '../styles/prateleira.css';
 
 export default function Shelf() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isShampooModalOpen, setIsShampooModalOpen] = useState(false);
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [tableData, setTableData] = useState<any[]>([]);
+
+  const shampooData = [
+    { produto: 'Shampoo A', quantidade: 10, saida: 2 },
+    { produto: 'Shampoo B', quantidade: 5, saida: 1 },
+    { produto: 'Shampoo C', quantidade: 8, saida: 3 },
+  ];
 
   const handlePress = (product: string) => {
     alert(`Você clicou no produto: ${product}`);
@@ -33,12 +41,13 @@ export default function Shelf() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  const handleOpenShampooModal = () => {
-    setIsShampooModalOpen(true);
+  const handleOpenTable = (data: any[]) => {
+    setTableData(data);
+    setIsTableOpen(true);
   };
 
-  const handleCloseShampooModal = () => {
-    setIsShampooModalOpen(false);
+  const handleCloseTable = () => {
+    setIsTableOpen(false);
   };
 
   return (
@@ -56,7 +65,7 @@ export default function Shelf() {
         >
 
             <div style={{ position: 'absolute', top: '60px', left: '40px', display: 'flex', gap: '10px' }}>
-                <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={handleOpenShampooModal}/>
+                <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={() => handleOpenTable(shampooData)}/>
                 <Button textobotao="Condicionador" corDeFundo="#F9F571" pressione={() => handlePress('Condicionador')} />
                 <Button textobotao="Chupeta" corDeFundo="#F58282" pressione={() => handlePress('Chupeta')} />
             </div>
@@ -89,6 +98,16 @@ export default function Shelf() {
 
             <LegendBox />
             {isModalOpen && <TabelaV onClose={handleCloseModal} />}
+            {isTableOpen && 
+            <TabelaS onClose={handleCloseTable}
+            data={tableData} 
+            title="Prateleira Shampoo"
+            slotText="Slot 001" />}
+            {isTableOpen && 
+            <TabelaS onClose={handleCloseTable}
+            data={tableData} 
+            title="Prateleira Shampoo"
+            slotText="Slot 001" />}
         </div>
     </div>
   );
