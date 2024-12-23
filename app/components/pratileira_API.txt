@@ -1,0 +1,115 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Button from '../Button/Button';
+import TabelaS from '../TabelaSlot/TabelaS';
+
+export default function Editar() {
+  const [slots, setSlots] = useState<any[]>([]); // Armazena os slots
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState<any>(null);
+
+  // Buscar slots do backend
+  const fetchSlots = async () => {
+    try {
+      const response = await fetch('/api/slots'); // Substitua com sua API
+      const data = await response.json();
+      setSlots(data);
+    } catch (error) {
+      console.error('Erro ao buscar slots:', error);
+    }
+  };
+
+  // Adicionar um novo slot
+  const addSlot = async (slot: string) => {
+    try {
+      await fetch('/api/slots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slot }),
+      });
+      fetchSlots(); // Atualiza os dados
+    } catch (error) {
+      console.error('Erro ao adicionar slot:', error);
+    }
+  };
+
+  // Deletar um slot pelo ID
+  const deleteSlot = async (id: number) => {
+    try {
+      await fetch(`/api/slots/${id}`, { method: 'DELETE' });
+      fetchSlots(); // Atualiza os dados
+    } catch (error) {
+      console.error('Erro ao deletar slot:', error);
+    }
+  };
+
+  // Abre a tabela com os dados do slot
+  const handleOpenTable = (slot: any) => {
+    setSelectedSlot(slot); // Define o slot selecionado
+    setIsTableOpen(true);  // Abre a tabela
+  };
+
+  const handleCloseTable = () => {
+    setIsTableOpen(false);
+    setSelectedSlot(null);
+  };
+
+  useEffect(() => {
+    fetchSlots(); // Carrega os slots ao montar o componente
+  }, []);
+
+  return (
+    <div className="containerPratileira1">
+      {/* Slots exibidos sem dependência do ID */}
+      <div
+        style={{
+          width: '600px',
+          height: '700px',
+          backgroundImage: `url('/estante.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+          padding: '5%',
+        }}
+      >
+        {slots.map((slot, index) =>
+          slot.ativo ? (
+            <Button
+              key={index} // Aqui usamos o índice como chave para exibir os slots
+              textobotao={slot.produto}
+              corDeFundo="#A8F0A4"
+              pressione={() => handleOpenTable(slot)}
+            />
+          ) : null
+        )}
+      </div>
+
+      {/* Botões para adicionar e deletar slots */}
+      <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+        <button onClick={() => addSlot('Novo Slot')}>Adicionar Slot</button>
+        <button
+          onClick={() => {
+            if (slots.length > 0) {
+              deleteSlot(slots[0].id); // Deleta o primeiro slot usando o ID
+            }
+          }}
+        >
+          Deletar Primeiro Slot
+        </button>
+      </div>
+
+      {/* Tabela exibida com base no slot selecionado */}
+      {isTableOpen && selectedSlot && (
+        <TabelaS
+          onClose={handleCloseTable}
+          data={[
+            { produto: selectedSlot.produto, quantidade: selectedSlot.quantidade, saida: 0 },
+          ]}
+          title={`Prateleira - ${selectedSlot.slot}`}
+          slotText={selectedSlot.slot}
+        />
+      )}
+    </div>
+  );
+}

@@ -9,6 +9,7 @@ import ButtonV from './ButtonVisual/ButtonV';
 import TabelaV from './TabelaV/TabelaV';
 import TabelaS from './TabelaSlot/TabelaS';
 
+
 import '../styles/prateleira.css';
 
 export default function Shelf() {
@@ -30,7 +31,7 @@ export default function Shelf() {
   const router = useRouter();
 
   const handleRedirect = () => {
-    router.push('/visualizar'); 
+    router.push('/editar'); 
   };
 
 
