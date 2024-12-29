@@ -8,8 +8,8 @@ export default function IndicatorBox({ title, value}: IndicatorBoxProps) {
   return (
     <div
       style={{
-        width: '150px',
-        height: '100px',
+        width: '190px',
+        height: '140px',
         backgroundColor: '#FFFFFF',
         borderRadius: '8px',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
@@ -21,7 +21,7 @@ export default function IndicatorBox({ title, value}: IndicatorBoxProps) {
       }}
     >
       <h4 style={{ fontSize: '14px', margin: '0', color: '#555' }}>{title}</h4>
-      <strong style={{ fontSize: '24px', margin: '0', color: '#004080' }}>{value}</strong>
+      <strong style={{ fontSize: '50px', margin: '0', color: '#004080' }}>{value}</strong>
     </div>
   );
 };
