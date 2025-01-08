@@ -1,11 +1,18 @@
 .container {
-    padding: 10%;
+    padding: 5%;
     background-color: #f9fafb;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 100%;
 
+  }
+  .config-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #21557A;
+    text-align: center;
+    margin-bottom: 24px;
   }
   
   .title {
@@ -17,7 +24,8 @@
   }
 
   .form{
-    padding: 10%;
+    padding: 5%;
+    width: 90%;
   }
   
   .inputGroup {
