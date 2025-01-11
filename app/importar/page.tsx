@@ -4,7 +4,7 @@ import "./styles.css";
 import SideNavBar from "../components/SideNavBar";
 import { CiImport } from "react-icons/ci";
 
-export default function importar() {
+export default function Importar() {
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

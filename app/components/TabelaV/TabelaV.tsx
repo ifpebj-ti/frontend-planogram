@@ -26,14 +26,16 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const mockData: React.SetStateAction<ShelfData[]> = [/* Dados aqui */]; 
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setData(mockData);
       setLoading(false);
     };
-
+  
     fetchData();
   }, []);
+  
 
   return (
     <div className="container">
