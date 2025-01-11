@@ -3,6 +3,7 @@ import React from 'react';
 import Head from "next/head";
 import SideNavBar from "./components/SideNavBar";
 import ShelfSelector from "./components/estante";
+import DSideNavBar from './components/NavBarAdmin';
 
 const shelvesData = [
   { id: 1, link: '/prateleira1', name: 'Prateleira 1' },
@@ -18,7 +19,7 @@ export default function Home() {
         <title>HOME</title>
         <meta name="descição" content="Sistema planograma"/>
       </Head>
-      <SideNavBar/>
+      <DSideNavBar/>
       <ShelfSelector shelves={shelvesData} />
     </div>
   );

@@ -33,8 +33,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  align-items: center; 
 }
+
 
 .icon {
   margin-right: 0.5rem; 
@@ -42,26 +43,30 @@
   height: 24px;
 }
 
+
 .menu-item span {
   font-size: 1rem;
   display: inline-block;
 }
 
+
 .menu-item {
   display: flex; 
-  flex-direction: row;
+  flex-direction: column; 
   align-items: center; 
   padding: 1rem;
   color: white;
   text-decoration: none;
   width: 100%;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
+
 
 .menu-item:hover {
   background-color: var(--selecionado);
   color: black; 
 }
+
 
 .menu-item .icon {
   margin-right: 0.5rem; 
@@ -70,8 +75,26 @@
 
 .menu-item:hover .icon {
   transform: scale(1.1); 
-  color: black; 
 }
+
+
+.sidenav.expanded .menu-item {
+  flex-direction: row; 
+  justify-content: flex-start;
+  align-items: center; 
+}
+
+
+.sidenav:not(.expanded) .menu-item span {
+  display: none;
+}
+
+
+.sidenav.expanded .menu-item span {
+  display: inline-block; 
+  margin-left: 0.5rem;
+}
+
 
 @media (max-width: 768px) {
   .sidenav {

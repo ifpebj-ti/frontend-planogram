@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  h1 {
+    font-size: 30px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 15px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .search-bar input {
+    border: none;
+    padding: 8px;
+    outline: none;
+    width: 250px;
+  }
+  
+  .search-button {
+    background-color: #21557A;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 0; 
+  }
+  
+  .add-user-button {
+    background-color: #21557A;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .add-user-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .user-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-role {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .user-name {
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .user-actions button {
+    background-color: #21557A;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  .user-actions .edit-button {
+    background-color: #21557A;
+  }
+  
+  .user-actions .delete-button {
+    background-color: #ff4d4d;
+  }
+  
+  .user-actions button:hover {
+    opacity: 0.9;
+  }
+  
+  .footer {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+  }
+  
+  
+  

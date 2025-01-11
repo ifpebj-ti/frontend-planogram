@@ -12,7 +12,7 @@ export default function Button({ textobotao, pressione, corDeFundo }: ButtonProp
     <div
       style={{
         width: '100px',
-        height: '100px',
+        height: '90px',
         background: corDeFundo, 
         boxShadow: '0px 4.8px 4.8px rgba(0, 0, 0, 0.25)',
         borderRadius: '6px',
