@@ -33,7 +33,7 @@ export default function SideNavBar() {
           </Link>
         </div>
         <div className="menu-item">
-          <Link href="/configuracoes">
+          <Link href="/configuracao">
           <FaCog size={24} className="icon" />
             {isOpen && <span>Configurações</span>}
           </Link>

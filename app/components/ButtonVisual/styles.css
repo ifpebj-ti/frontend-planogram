@@ -9,6 +9,7 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.2s ease;
     margin: 20px;
+    width: 200px;
   }
   
   .button:hover {
