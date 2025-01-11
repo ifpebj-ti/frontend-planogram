@@ -30,7 +30,7 @@ export default function Shelf() {
   const router = useRouter();
 
   const handleRedirect = () => {
-    router.push('/visualizar'); 
+    router.push('/prateleira1/EditPla'); 
   };
 
 

@@ -1,0 +1,114 @@
+.container {
+    display: flex;
+    height: 100%;
+    background-color: #f5f5f5;
+    width: 100%;
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .content h1 {
+    font-size: 24px;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+  }
+  
+  .upload-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+    padding: 50px;
+  }
+  
+  
+  .upload-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .file-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    height: 100px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .file-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #21557A;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 200px;
+    height: 40px;
+    text-align: center;
+  }
+  
+  .file-input input {
+    display: none;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .cancel-button {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-button:hover {
+    background-color: #aaa;
+  }
+  
+  .upload-button {
+    background-color: #21557A;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .footer {
+    margin-top: 100px;
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
