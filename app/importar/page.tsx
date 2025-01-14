@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import SideNavBar from "../components/SideNavBar";
 import { CiImport } from "react-icons/ci";
+import { FaRegCopyright } from "react-icons/fa";
 
 export default function Importar() {
   const [file, setFile] = useState<File | null>(null);
@@ -65,7 +66,7 @@ export default function Importar() {
         </div>
 
         <footer className="footer">
-          Todos os direitos reservados - Versão 1.0
+          <FaRegCopyright />Todos os direitos reservados - Versão 1.0
         </footer>
       </main>
     </div>

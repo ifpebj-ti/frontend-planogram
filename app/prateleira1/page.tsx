@@ -4,6 +4,7 @@ import Head from "next/head";
 import SideNavBar from "../components/SideNavBar";
 import Prateleira from '../components/prateleira';
 import './style.css'
+import { FaRegCopyright } from 'react-icons/fa';
 
 
 
@@ -22,7 +23,7 @@ export default function Prateleira1(){
                 </div>
             </div>
             <footer className="footer">
-                <p>Todos os direitos reservados</p>
+                <FaRegCopyright />Todos os direitos reservados
             </footer>
         </div>
     )
