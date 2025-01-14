@@ -21,7 +21,7 @@ Visualizar o passo a passo em: [Fluxo de Contribuição](https://github.com/ifpe
 Você pode visualizar o protótipo em: [Protótipo](https://www.figma.com/design/TffeoWIOwNMcYaGlyzi36x/Planograma) 
 
 ## Protótipo do Site  
-Você pode acessar o protótipo do site Slotex pelo seguinte endereço: [Protótipo do Planograma](http://150.230.84.87:3000) 
+Você pode acessar o protótipo do site Slotex pelo seguinte endereço: [Protótipo do Planograma](www.slotex.me) 
 
 ## Wiki
 Para mais informações e documentação do projeto, acesse nossa [Wiki](https://github.com/ifpebj-ti/frontend-planogram/wiki).
