@@ -54,8 +54,8 @@ export default function Shelf() {
     <div className='containerPratileira1'>
         <div
         style={{
-            width: '600px', 
-            height: '700px', 
+            width: '500px', 
+            height: '600px', 
             backgroundImage: `url('/estante.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -64,12 +64,12 @@ export default function Shelf() {
         }}
         >
 
-            <div style={{ position: 'absolute', top: '60px', left: '40px', display: 'flex', gap: '10px' }}>
+            <div style={{ position: 'absolute', top: '40px', left: '40px', display: 'flex', gap: '10px' }}>
                 <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={() => handleOpenTable(shampooData)}/>
                 <Button textobotao="Condicionador" corDeFundo="#F9F571" pressione={() => handlePress('Condicionador')} />
                 <Button textobotao="Chupeta" corDeFundo="#F58282" pressione={() => handlePress('Chupeta')} />
             </div>
-            <div style={{ position: 'absolute', top: '180px', left: '40px', display: 'flex', gap: '10px' }}>
+            <div style={{ position: 'absolute', top: '150px', left: '40px', display: 'flex', gap: '10px' }}>
                 <Button textobotao="Shampoo" corDeFundo="#A8F0A4" pressione={() => handlePress('Shampoo')} />
                 <Button textobotao="Condicionador" corDeFundo="#F9F571" pressione={() => handlePress('Condicionador')} />
                 <Button textobotao="Chupeta" corDeFundo="#F58282" pressione={() => handlePress('Chupeta')} />
@@ -84,10 +84,10 @@ export default function Shelf() {
         justifyContent: 'center',
         gap: '20px',
         backgroundColor: '#EFF0F0',
-        padding: '15px',
+        padding: '20px',
         }}
         >
-          <div className="flex justify-center items-center h-screen bg-gray-100 m-8">
+          <div className="flex justify-center items-center h-screen bg-gray-100 m-4">
             <ButtonV label="Visualizar" onClick={handleOpenModal}  />
             <ButtonV label="Editar" onClick={handleRedirect} />
           </div>

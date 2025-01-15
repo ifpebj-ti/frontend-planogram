@@ -8,8 +8,8 @@ export default function IndicatorBox({ title, value}: IndicatorBoxProps) {
   return (
     <div
       style={{
-        width: '190px',
-        height: '140px',
+        width: '170px',
+        height: '120px',
         backgroundColor: '#FFFFFF',
         borderRadius: '8px',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',

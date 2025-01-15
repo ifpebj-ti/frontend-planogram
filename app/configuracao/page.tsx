@@ -1,5 +1,5 @@
 'use client'; 
-import { FaEdit, FaSave } from "react-icons/fa";
+import { FaEdit, FaRegCopyright, FaSave } from "react-icons/fa";
 import "./styles.css"; // Importando o CSS
 import SideNavBar from "../components/SideNavBar";
 import { useState } from "react";
@@ -89,7 +89,7 @@ export default function Configuracoes() {
         
 
         <footer className="footer">
-          Todos os direitos reservados - Versão 1.0
+          <FaRegCopyright />Todos os direitos reservados - Versão 1.0
         </footer>
       </main>
     </div>
