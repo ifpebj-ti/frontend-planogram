@@ -27,7 +27,7 @@ export default function Button({ textobotao, pressione, corDeFundo }: ButtonProp
     >
       <span
         style={{
-          fontSize: '14px',
+          fontSize: '12px',
           fontWeight: 'bold',
           color: '#000',
           transform: 'rotate(15deg)', 

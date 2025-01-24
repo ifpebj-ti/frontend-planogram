@@ -2,26 +2,25 @@
 
 import React, { useEffect, useState } from 'react';
 import './style.css';
+import ButtonV from '../ButtonVisual/ButtonV';
 
 type ShelfData = {
-  codigoSlot: string;
   produto: string;
   quantidade: number;
-  saida: number;
 };
 
 interface ShelfViewProps {
   onClose: () => void;
 }
 
-const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
+const TabelaAdd: React.FC<ShelfViewProps> = ({ onClose }) => {
   const [data, setData] = useState<ShelfData[]>([]);
   const [loading, setLoading] = useState(true);
 
   const mockData: ShelfData[] = [
-    { codigoSlot: '0001', produto: 'Produto A', quantidade: 10, saida: 2 },
-    { codigoSlot: '0002', produto: 'Produto B', quantidade: 15, saida: 5 },
-    { codigoSlot: '0003', produto: 'Produto C', quantidade: 8, saida: 1 },
+    { produto: 'Produto A', quantidade: 10},
+    { produto: 'Produto B', quantidade: 15},
+    { produto: 'Produto C', quantidade: 8},
   ];
 
   useEffect(() => {
@@ -35,6 +34,10 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
     fetchData();
   }, []);
 
+  function handleRedirect(): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div className="container">
       <div className="card">
@@ -43,7 +46,7 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
             &times;
           </button>
         </div>
-
+        <h1>Selecione os produtos que deseja adicionar ao slot da prateleira</h1>
         <div className="tableContainer">
           {loading ? (
             <p className="text-center py-6">Carregando...</p>
@@ -51,26 +54,24 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
             <table className="table">
               <thead>
                 <tr className="tableHead">
-                  <th className="tableCell">Cód Slot</th>
                   <th className="tableCell">Produto</th>
                   <th className="tableCell">Qntd.</th>
-                  <th className="tableCell">Saída</th>
                 </tr>
               </thead>
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index} className="rowOdd">
-                    <td className="tableCell">{item.codigoSlot}</td>
                     <td className="tableCell">{item.produto}</td>
                     <td className="tableCell">{item.quantidade}</td>
-                    <td className="tableCell">{item.saida}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
         </div>
-
+        <div className="buttonContainer">
+          <ButtonV label="+ Adicionar" onClick={handleRedirect} />
+        </div>
         <div className="footer">
           <p>Todos os direitos reservados - Versão 1.0</p>
         </div>
@@ -79,7 +80,4 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
   );
 };
 
-export default TabelaV;
-
-
-
+export default TabelaAdd;
