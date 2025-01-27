@@ -1,17 +1,14 @@
-/* Layout principal */
 .login-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start; /* Alinha o card no topo */
+    align-items: flex-start; 
     min-height: 100vh;
     background: linear-gradient(to bottom, #21557A, #85CFA5);
-    padding-top: 60px; /* Aumenta o espaçamento no topo */
-    padding-bottom: 20px; /* Opcional: controla o espaço no rodapé */
+    padding-top: 60px;
+    padding-bottom: 20px;
   }
   
-  
-  /* Ajuste da área de login */
   .login-card {
     display: flex;
     width: 700px; 
@@ -20,10 +17,9 @@
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin: auto; /* Centraliza o card */
+    margin: auto; 
   }
   
-  /* Imagem à esquerda */
   .login-image {
     flex: 1;
     background: url('/pharmacy-background.png') center/cover no-repeat;
@@ -36,7 +32,6 @@
     }
   }
   
-  /* Conteúdo do login */
   .login-content {
     flex: 1;
     padding: 24px 32px;
@@ -50,12 +45,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 16px; /* Espaço entre a logo e o título */
+    margin-bottom: 16px; 
   }
   
   .login-logo {
     width: 150px;
-    height: auto; /* Mantém a proporção correta da imagem */
+    height: auto; 
   }
   
   .login-title {
@@ -100,12 +95,11 @@
   
   .forgot-password,
  
-  /* Rodapé */
   .login-footer {
     text-align: center;
     font-size: 0.85rem;
     color: #002135;
-    margin-top: auto; /* Faz o footer ficar no final */
+    margin-top: auto; 
     padding: 16px 0px;
     width: 100%;
   }
