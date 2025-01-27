@@ -1,0 +1,106 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start; 
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #21557A, #85CFA5);
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+  
+  .login-card {
+    display: flex;
+    width: 700px; 
+    max-width: 90%; 
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: auto; 
+  }
+  
+  .login-image {
+    flex: 1;
+    background: url('/pharmacy-background.png') center/cover no-repeat;
+    display: none;
+  }
+  
+  @media (min-width: 1024px) {
+    .login-image {
+      display: block;
+    }
+  }
+  
+  .login-content {
+    flex: 1;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .login-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px; 
+  }
+  
+  .login-logo {
+    width: 150px;
+    height: auto; 
+  }
+  
+  .login-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #002135;
+    margin-bottom: 16px;
+    font-weight: bold;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  label {
+    font-size: 0.875rem;
+    color: #555;
+  }
+  
+  input {
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  button {
+    background: #21557A;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background: #16468a;
+  }
+  
+  .forgot-password,
+ 
+  .login-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #002135;
+    margin-top: auto; 
+    padding: 16px 0px;
+    width: 100%;
+  }
+  
