@@ -15,7 +15,7 @@ interface User {
 
 export default function GerenciarUsuarios() {
   const [search, setSearch] = useState('');
-  const [selectedUser, setSelectedUser] = useState<User | null>(null); // Corrigido o tipo do estado
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -39,18 +39,22 @@ export default function GerenciarUsuarios() {
   );
 
   const openModal = (user: User) => {
-    setSelectedUser(user); // Agora aceita objetos do tipo User
+    setSelectedUser(user); 
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedUser(null); // O estado volta para null
+    setSelectedUser(null);
     setIsModalOpen(false);
   };
 
   const handleEdit = (user: User) => {
     router.push(`/gerenUser/EditUse?id=${user.id}&name=${user.name}&email=${user.email}&role=${user.role}`);
   };
+  const handleAddUser = () => {
+    router.push('/gerenUser/addUser');
+  };
+  
 
   return (
     <div className="container">
@@ -67,7 +71,7 @@ export default function GerenciarUsuarios() {
           />
           <button className="search-button">🔍</button>
         </div>
-        <button className="add-user-button">+ Adicionar Usuário</button>
+        <button className="add-user-button" onClick={handleAddUser}>+ Adicionar Usuário</button>
       </div>
 
       <ul className="user-list">

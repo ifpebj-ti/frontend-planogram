@@ -44,7 +44,7 @@ export default function DSideNavBar() {
           </Link>
         </div>
         <div className="menu-item">
-          <Link href="/configuracoes">
+          <Link href="/configuracao">
             <FaCog size={24} className="icon" />
             <span className={isOpen ? "visible" : "hidden"}>Configurações</span>
           </Link>

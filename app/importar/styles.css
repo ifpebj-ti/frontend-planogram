@@ -110,6 +110,8 @@
     color: #555;
     text-align: center;
     margin-bottom: 20px;
+    background-color: #f5f5f5;
+    flex-direction: row;
   }
   
   

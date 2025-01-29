@@ -1,18 +1,16 @@
 
 .container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0; 
+  width: 100vw; 
+  height: 100vh; 
   background: rgba(200, 200, 200, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
-  
-  
+
   .card {
     width: 100%;
     max-width: 800px;
@@ -22,7 +20,7 @@
     overflow: hidden;
     animation: slideDown 0.3s ease-out;
   }
-  
+
   @keyframes slideDown {
     from {
       transform: translateY(-20px);
@@ -36,46 +34,49 @@
   
 
   .header {
-    background-color: transparent; 
-    color: white;
-    padding: 1rem;
-    font-size: 1.25rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; 
     align-items: center;
+    padding: 1rem;
     position: relative;
-  }
-  
-  .headerTitle {
-    font-size: 1.25rem;
-    font-weight: bold;
   }
   
   .closeButton {
     background: none;
     border: none;
     color: #004d66;
-    font-size: 3rem;
-    justify-content: flex-end;
+    font-size: 3rem; 
     cursor: pointer;
-    left: 100%;
+    margin-left: auto; 
+  }
+  .card h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #4c5558;
+  }
+  
+  .headerTitle {
+    font-size: 3rem;
+    font-weight: bold;
   }
   
   .tableContainer {
-    overflow-x: auto;
     padding: 1rem;
-    background-color: transparent;
-
+    display: flex;
+    justify-content: center;
   }
   
   .table {
-    width: 100%;
+    width: 80%; 
+    max-width: 600px; 
     border-collapse: collapse;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 15px; 
+    margin: 0 auto; 
+    border-radius: 15px;
     overflow: hidden;
   }
+  
   
   .tableHead {
     background-color: #21557A;
@@ -92,6 +93,12 @@
   .rowOdd {
     background-color: #a5ebcc;
   }
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem; 
+  }
   
   
   .footer {
@@ -102,9 +109,7 @@
     background-color: transparent;
   }
   
-  .tabela-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #004d66;
-    margin-bottom: 20px;
-  }
+ 
+
+  
+  
