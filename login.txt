@@ -1,0 +1,16 @@
+usuário: ana@teste.com
+senha: Senha123
+
+curl -X POST "http://localhost:8080/users/login" \
+     -H "Content-Type: application/json" \
+     -d '{"email":"ana@teste.com", "senha":"Senha123"}'
+
+
+{"message":"Login realizado com sucesso","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibml2ZWxfZGVfYWNlc3NvIjoiYWRtaW4iLCJpYXQiOjE3MzgyODQ4MTYsImV4cCI6MTczODI4ODQxNn0.4Gv1TOdFGsWoWlM3NYfKh09kCFKmDD5gZrs7QOEZ4co","nivel_de_acesso":"admin"}
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibml2ZWxfZGVfYWNlc3NvIjoiYWRtaW4iLCJpYXQiOjE3MzgyODU0ODgsImV4cCI6MTczODI4OTA4OH0.UtQlvfC6Uk-uQ_Mssqw4TetROhT-EQeZSJHlMFp2i9I
+
+curl -X GET "http://localhost:8080/users" \
+     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibml2ZWxfZGVfYWNlc3NvIjoiYWRtaW4iLCJpYXQiOjE3MzgyODU0ODgsImV4cCI6MTczODI4OTA4OH0.UtQlvfC6Uk-uQ_Mssqw4TetROhT-EQeZSJHlMFp2i9I
+"

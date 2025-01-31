@@ -4,6 +4,7 @@ import Head from "next/head";
 import SideNavBar from "./components/SideNavBar";
 import ShelfSelector from "./components/estante";
 import DSideNavBar from './components/NavBarAdmin';
+import Login from './login/page';
 
 const shelvesData = [
   { id: 1, link: '/prateleira1', name: 'Prateleira 1' },
@@ -19,8 +20,7 @@ export default function Home() {
         <title>HOME</title>
         <meta name="descição" content="Sistema planograma"/>
       </Head>
-      <DSideNavBar/>
-      <ShelfSelector shelves={shelvesData} />
+      <Login/>
     </div>
   );
 }
