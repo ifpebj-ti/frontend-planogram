@@ -123,7 +123,27 @@ export const api = {
     }
   
     return res.json();
-  }
+  },
+
+  async uploadFile(endpoint: string, formData: FormData): Promise<any> {
+    try {
+      const response = await fetch(`http://localhost:8080/${endpoint}`, {
+        method: "POST",
+        body: formData, // Não precisa definir headers, o navegador faz isso automaticamente
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao enviar arquivo: ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("❌ Erro no upload:", error);
+      throw error;
+    }
+  },
+  
+  
   
 };
 

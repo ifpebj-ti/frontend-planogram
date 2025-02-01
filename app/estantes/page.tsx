@@ -1,5 +1,5 @@
 import ShelfSelector from "../components/estante";
-import DSideNavBar from '../components/NavBarAdmin';
+import SideNavBar from "../components/SideNavBar";
 
 const shelvesData = [
   { id: 1, link: '/prateleira1', name: 'Prateleira 1' },
@@ -11,7 +11,7 @@ export default function Estantes() {
   
   return (
     <div >
-      <DSideNavBar/>
+      <SideNavBar/>
       <ShelfSelector shelves={shelvesData} />
     </div>
   );
