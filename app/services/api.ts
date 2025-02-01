@@ -104,5 +104,26 @@ export const api = {
   getUser() {
     return JSON.parse(localStorage.getItem("user") || "{}");
   },
+  async updateUser(id: number, data: any) {
+    const token = localStorage.getItem("token");
+  
+    const res = await fetch(`${API_URL}/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+  
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`❌ Erro ao atualizar usuário: ${res.status} - ${errorText}`);
+      throw new Error(`Erro ao atualizar usuário: ${errorText}`);
+    }
+  
+    return res.json();
+  }
+  
 };
 

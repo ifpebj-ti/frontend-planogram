@@ -6,7 +6,7 @@ import "./style.css";
 import DSideNavBar from "../../components/NavBarAdmin";
 import { FaRegCopyright, FaSave } from "react-icons/fa";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { api } from "../../../services/api";
+import { api } from "../../services/api";
 
 export default function AddUser() {
   const router = useRouter();

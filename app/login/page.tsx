@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./style.css";
-import { api } from "../../services/api";
+import { api } from "../services/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,6 +23,9 @@ export default function Login() {
     } else {
       setError("Erro no login. Verifique suas credenciais.");
     }
+  };
+  const handleEsqueceu = () => {
+    router.push(`/EsqueSenha`);
   };
 
   return (
@@ -51,7 +54,7 @@ export default function Login() {
             />
             <button type="submit">Entrar</button>
           </form>
-          <a href="#" className="forgot-password">Esqueceu a senha?</a>
+          <a onClick={handleEsqueceu} className="forgot-password">Esqueceu a senha?</a>
         </div>
       </div>
       <footer className="login-footer">

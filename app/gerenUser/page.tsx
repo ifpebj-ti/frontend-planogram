@@ -6,7 +6,7 @@ import SideNavBar from "../components/SideNavBar";
 import VisuaUser from "../components/visuaUser/visuaUser";
 import { useRouter } from "next/navigation";
 import { FaRegCopyright } from "react-icons/fa";
-import { api } from "../../services/api";
+import { api } from "../services/api";
 
 interface User {
   id: number;
@@ -43,7 +43,7 @@ export default function GerenciarUsuarios() {
   );
 
   const openModal = (user: User) => {
-    setSelectedUser(user); // Passando diretamente o objeto User
+    setSelectedUser(user); 
     setIsModalOpen(true);
   };
   
@@ -54,7 +54,7 @@ export default function GerenciarUsuarios() {
   };
 
   const handleEdit = (user: User) => {
-    router.push(`/gerenUser/EditUser?id=${user.id}&nome=${user.nome}&email=${user.email}&nivel_de_acesso=${user.nivel_de_acesso}`);
+    router.push(`/gerenUser/editUse?id=${user.id}`); // Use "editUser" com minúsculas
   };
 
   const handleAddUser = () => {
