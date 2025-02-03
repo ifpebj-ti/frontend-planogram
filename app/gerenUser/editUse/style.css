@@ -80,10 +80,7 @@
     background-color: #ffffff;
   }
   
-  input:focus,
-  select:focus {
-    border-color: #1e3a8a;
-  }
+  
   
   .save-button {
     display: flex;

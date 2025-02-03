@@ -6,33 +6,12 @@
   padding: 5%;
 }
 
-
-.sidebar {
-  width: 60px;
-  background-color: #1e3a8a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-}
-
-.sidebar .icon {
-  color: white;
-  margin: 15px 0;
-  font-size: 20px;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.sidebar .icon:hover {
-  color: #93c5fd;
-}
-
-
 .content {
   flex: 1;
   padding: 40px;
   background-color: #f5f5f5;
+  width: 100vh;
+  justify-content: center;
 }
 
 .content h1 {
