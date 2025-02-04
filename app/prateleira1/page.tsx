@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import Head from "next/head";
 import SideNavBar from "../components/SideNavBar";
@@ -38,7 +39,6 @@ export default function Prateleira1() {
   const [isTableOpen, setIsTableOpen] = useState(false);
   const [tableData, setTableData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  
 
   useEffect(() => {
     if (prateleiraId) {
@@ -89,6 +89,12 @@ export default function Prateleira1() {
     setIsTableOpen(false);
   };
 
+  // Agrupar os botões de 4 em 4 para a exibição correta
+  const groupedCategories = [];
+  for (let i = 0; i < categories.length; i += 4) {
+    groupedCategories.push(categories.slice(i, i + 4));
+  }
+
   return (
     <div className='total'>
       <Head>
@@ -114,16 +120,20 @@ export default function Prateleira1() {
                 padding: '5%',
               }}
             >
-              
+              {/* 🔹 Renderiza os botões de categorias organizados em linhas de 4 */}
               <div className="category-buttons-container">
-                {categories.length > 0 ? (
-                  categories.map((categoria) => (
-                    <Button
-                      key={categoria.id}
-                      textobotao={categoria.nome}
-                      corDeFundo="#A8F0A4"
-                      pressione={() => fetchProductsByCategory(categoria.nome)}
-                    />
+                {groupedCategories.length > 0 ? (
+                  groupedCategories.map((row, rowIndex) => (
+                    <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
+                      {row.map((categoria) => (
+                        <Button
+                          key={categoria.id}
+                          textobotao={categoria.nome}
+                          corDeFundo="#A8F0A4"
+                          pressione={() => fetchProductsByCategory(categoria.nome)}
+                        />
+                      ))}
+                    </div>
                   ))
                 ) : (
                   <p style={{ color: 'red' }}>Nenhuma categoria disponível</p>
@@ -147,8 +157,8 @@ export default function Prateleira1() {
               </div>
 
               <div style={{ display: 'flex', gap: '20px' }}>
-                <IndicatorBox title="Total de slots" value={15} />
-                <IndicatorBox title="Total de produtos" value={250} />
+                <IndicatorBox title="Total de slots" value={categories.length} />
+                <IndicatorBox title="Total de produtos" value={tableData.length} />
               </div>
 
               <LegendBox />
@@ -173,6 +183,7 @@ export default function Prateleira1() {
     </div>
   );
 }
+
 
 
 
