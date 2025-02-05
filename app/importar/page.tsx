@@ -62,7 +62,7 @@ export default function Importar() {
             <input
               id="fileUpload"
               type="file"
-              accept=".xml,.csv"
+              accept=".xlsx"
               onChange={handleFileChange}
             />
             {file && <span className="file-name">{file.name}</span>} {/* Exibir nome do arquivo */}
