@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import "./style.css";
 import Button from "../../components/Button/Button";
 import SideNavBar from "../../components/SideNavBar";
 import ButtonV from "../../components/ButtonVisual/ButtonV";
-import TabelaA from "../../components/TabelaAdd/TabelaAdd"; // Importa a tabela para adicionar itens
+import TabelaA from "../../components/TabelaAdd/TabelaAdd"; 
 import { api } from "../../services/api";
 
 interface Shelf {
@@ -15,7 +15,15 @@ interface Shelf {
   produtos: { id: number; nome: string; quantidade: number }[];
 }
 
-export default function EditarPrateleira() {
+export default function EditarPratileira() {
+  return (
+    <Suspense fallback={<p>🔄 Carregando edição da prateleira...</p>}>
+      <EditarPratileiraContent />
+    </Suspense>
+  );
+}
+
+function EditarPratileiraContent() {
   const searchParams = useSearchParams();
   const prateleiraId = searchParams.get("id");
 
@@ -34,8 +42,8 @@ export default function EditarPrateleira() {
         try {
           const response = await api.get<Shelf>(`shelves/${prateleiraId}`);
           setShelf(response);
-          
-          // Preencher os slots com os produtos existentes
+
+          // Atualiza os slots com os produtos existentes
           const updatedShelves = shelves.map((row, rowIdx) =>
             row.map((_, colIdx) =>
               response.produtos[rowIdx * row.length + colIdx]?.nome || "empty"
@@ -51,7 +59,7 @@ export default function EditarPrateleira() {
     }
   }, [prateleiraId]);
 
-  const limparPrateleira = () => {
+  const limparPratileira = () => {
     setShelves(shelves.map((row) => row.map(() => "empty")));
   };
 
@@ -75,7 +83,7 @@ export default function EditarPrateleira() {
 
       <main className="content">
         <h1>Editar {shelf ? `Prateleira ${shelf.nome}` : "Carregando..."}</h1>
-        
+
         <div className="centro">
           <div className="containerPratileira1">
             <div
@@ -91,16 +99,18 @@ export default function EditarPrateleira() {
             >
               {/* Estrutura para exibir os produtos */}
               <div className="category-buttons-container">
-                {shelves.map((row, rowIdx) =>
-                  row.map((slot, colIdx) => (
-                    <Button
-                      key={`${rowIdx}-${colIdx}`}
-                      textobotao={slot === "empty" ? "+" : slot}
-                      corDeFundo={slot === "empty" ? "#CCCCCC" : "#A8F0A4"}
-                      pressione={slot === "empty" ? adicionarItem : () => removerItem(rowIdx, colIdx)}
-                    />
-                  ))
-                )}
+                {shelves.map((row, rowIdx) => (
+                  <div key={rowIdx} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
+                    {row.map((slot, colIdx) => (
+                      <Button
+                        key={`${rowIdx}-${colIdx}`}
+                        textobotao={slot === "empty" ? "+" : slot}
+                        corDeFundo={slot === "empty" ? "#CCCCCC" : "#A8F0A4"}
+                        pressione={slot === "empty" ? adicionarItem : () => removerItem(rowIdx, colIdx)}
+                      />
+                    ))}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -116,21 +126,21 @@ export default function EditarPrateleira() {
               }}
             >
               <div className="flex justify-center items-center h-screen bg-gray-100 m-4">
-                <ButtonV label="Limpar" onClick={limparPrateleira} />
+                <ButtonV label="Limpar" onClick={limparPratileira} />
               </div>
             </div>
           </div>
         </div>
 
-        <footer className="footer">
-          Todos os direitos reservados - Versão 1.0
-        </footer>
+        <footer className="footer">Todos os direitos reservados - Versão 1.0</footer>
       </main>
 
       {isTabelaOpen && <TabelaA onClose={fecharTabela} />}
     </div>
   );
 }
+
+
 
 
 

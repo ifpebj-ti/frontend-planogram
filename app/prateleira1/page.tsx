@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Head from "next/head";
 import SideNavBar from "../components/SideNavBar";
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -29,7 +29,8 @@ interface UserData {
   categorias: Category[];
 }
 
-export default function Prateleira1() {
+
+function PrateleiraContent() {
   const searchParams = useSearchParams();
   const prateleiraId = searchParams.get('id');
   const router = useRouter();
@@ -89,8 +90,8 @@ export default function Prateleira1() {
     setIsTableOpen(false);
   };
 
-  // Agrupar os botões de 4 em 4 para a exibição correta
-  const groupedCategories = [];
+  
+  const groupedCategories: Category[][] = [];
   for (let i = 0; i < categories.length; i += 4) {
     groupedCategories.push(categories.slice(i, i + 4));
   }
@@ -120,7 +121,6 @@ export default function Prateleira1() {
                 padding: '5%',
               }}
             >
-              {/* 🔹 Renderiza os botões de categorias organizados em linhas de 4 */}
               <div className="category-buttons-container">
                 {groupedCategories.length > 0 ? (
                   groupedCategories.map((row, rowIndex) => (
@@ -142,7 +142,7 @@ export default function Prateleira1() {
             </div>
 
             <div 
-            style={{
+              style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -150,7 +150,8 @@ export default function Prateleira1() {
                 gap: '20px',
                 backgroundColor: '#EFF0F0',
                 padding: '20px',
-                }}>
+              }}>
+              
               <div className="flex justify-center items-center h-screen bg-gray-100 m-4">
                 <ButtonV label="Visualizar" onClick={handleOpenModal} />
                 <ButtonV label="Editar" onClick={handleRedirect} />
@@ -183,6 +184,16 @@ export default function Prateleira1() {
     </div>
   );
 }
+
+
+export default function Prateleira() {
+  return (
+    <Suspense fallback={<p>🔄 Carregando prateleira...</p>}>
+      <PrateleiraContent />
+    </Suspense>
+  );
+}
+
 
 
 

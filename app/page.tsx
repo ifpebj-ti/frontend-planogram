@@ -3,7 +3,6 @@ import React from 'react';
 import Head from "next/head";
 import SideNavBar from "./components/SideNavBar";
 import ShelfSelector from "./components/estante";
-import DSideNavBar from './components/NavBarAdmin';
 import Login from './login/page';
 
 const shelvesData = [
