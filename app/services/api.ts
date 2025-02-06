@@ -194,6 +194,15 @@ export const api = {
       return false;
     }
   },
+  async getProductsByCategory(categoryId: number) {
+    try {
+      return await api.get(`categories/${categoryId}/produtos`);
+    } catch (error) {
+      console.error("Erro ao buscar produtos da categoria:", error);
+      throw error;
+    }
+  },
+  
   
 };
 

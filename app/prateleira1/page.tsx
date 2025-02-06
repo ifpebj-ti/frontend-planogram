@@ -193,8 +193,3 @@ export default function Prateleira() {
     </Suspense>
   );
 }
-
-
-
-
-

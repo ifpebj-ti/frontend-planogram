@@ -82,10 +82,10 @@ function EditarPratileiraContent() {
       <SideNavBar />
 
       <main className="content">
-        <h1>Editar {shelf ? `Prateleira ${shelf.nome}` : "Carregando..."}</h1>
+        <h1>Editar {shelf ? `${shelf.nome}` : "Carregando..."}</h1>
 
         <div className="centro">
-          <div className="containerPratileira1">
+          <div className="pratileira">
             <div
               style={{
                 width: "500px",
@@ -97,8 +97,7 @@ function EditarPratileiraContent() {
                 padding: "5%",
               }}
             >
-              {/* Estrutura para exibir os produtos */}
-              <div className="category-buttons-container">
+              <div className=".shelf-slot">
                 {shelves.map((row, rowIdx) => (
                   <div key={rowIdx} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
                     {row.map((slot, colIdx) => (
