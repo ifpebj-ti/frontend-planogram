@@ -11,9 +11,9 @@ type TableRow = {
   
   interface TabelaSProps {
     onClose: () => void;
-    data: TableRow[]; // Recebe os dados como parâmetro
-    title?: string; // Opcional: título dinâmico da tabela
-    slotText?: string; // Texto lateral dinâmico (ex: Slot 001)
+    data: TableRow[];
+    title?: string; 
+    slotText?: string;
   }
 
   const TabelaV: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', slotText = 'Slot' }) => {

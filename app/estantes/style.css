@@ -1,0 +1,87 @@
+
+.shelf-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #e3e3e3; 
+  min-height: 100vh;
+}
+
+.shelf-selector h1 {
+  font-size: 2rem;
+  color: #002135;
+  text-align: justify;
+  margin-top: 5%;
+  font-weight: bold;
+}
+
+
+.shelf-selector h2 {
+  font-size: 1.5rem;
+  color: #666666;
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+
+.shelf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+  margin-top: 5%;
+}
+
+
+.shelf-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 5px; 
+  width: 100%;
+}
+
+.shelf-number {
+  background-color: #2b4b7e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+  margin-right: -1rem;
+  font-size: 13px;
+}
+
+.shelf-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.shelf-item {
+  background-color: #2b4b7e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  min-width: 300px; 
+  max-width: 450px;
+}
+
+.footer {
+  margin-top: auto;
+  text-align: center;
+  color: #666;
+  padding: 1rem;
+  background-color: #e3e3e3;
+}

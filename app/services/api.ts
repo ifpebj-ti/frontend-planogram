@@ -11,6 +11,27 @@ export const api = {
     return res.json();
   },
 
+  async put<T>(endpoint: string, data: any): Promise<T> {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API_URL}/${endpoint}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error(`❌ Erro ao atualizar: ${res.status} - ${errorText}`);
+      throw new Error(`Erro ao atualizar: ${errorText}`);
+    }
+
+    return res.json();
+  },
+
   async post<T>(endpoint: string, data: any): Promise<T> {
     const token = localStorage.getItem("token");
 
@@ -47,11 +68,11 @@ export const api = {
       }
   
       const data = await res.json();
-      console.log("Token recebido:", data.token); // Verificar no console do navegador
+      console.log("Token recebido:", data.token);
+      console.log("Dados do usuário:", data);
   
-      // Salvar token corretamente
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify({ id: data.id, nome: data.nome, email: data.email, nivel_de_acesso: data.nivel_de_acesso }));
   
       return data.token;
     } catch (error) {
@@ -59,17 +80,10 @@ export const api = {
       return null;
     }
   },
-  
 
   async getUsers() {
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/users`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!res.ok) throw new Error("Erro ao buscar usuários");
-      return res.json();
+      return await api.get("users");
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
       return [];
@@ -104,26 +118,84 @@ export const api = {
   getUser() {
     return JSON.parse(localStorage.getItem("user") || "{}");
   },
+
   async updateUser(id: number, data: any) {
-    const token = localStorage.getItem("token");
-  
-    const res = await fetch(`${API_URL}/users/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    });
-  
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error(`❌ Erro ao atualizar usuário: ${res.status} - ${errorText}`);
-      throw new Error(`Erro ao atualizar usuário: ${errorText}`);
+    return await api.put(`users/${id}`, data);
+  },
+
+  async uploadFile(endpoint: string, formData: FormData): Promise<any> {
+    try {
+      const response = await fetch(`${API_URL}/${endpoint}`, {
+        method: "POST",
+        body: formData, 
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao enviar arquivo: ${response.statusText}`);
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("❌ Erro no upload:", error);
+      throw error;
     }
-  
-    return res.json();
-  }
+  },
+
+  // ============================ PRATELEIRAS ============================
+
+  async getShelves() {
+    try {
+      return await api.get("prateleiras");
+    } catch (error) {
+      console.error("Erro ao buscar prateleiras:", error);
+      return [];
+    }
+  },
+
+  async getShelfById(id: number) {
+    try {
+      return await api.get(`prateleiras/${id}`);
+    } catch (error) {
+      console.error("Erro ao buscar prateleira:", error);
+      throw error;
+    }
+  },
+
+  async addShelf(data: { name: string; link: string }) {
+    try {
+      return await api.post("prateleiras", data);
+    } catch (error) {
+      console.error("Erro ao adicionar prateleira:", error);
+      throw error;
+    }
+  },
+
+  async updateShelf(id: number, data: { name: string; link: string }) {
+    try {
+      return await api.put(`prateleiras/${id}`, data);
+    } catch (error) {
+      console.error("Erro ao atualizar prateleira:", error);
+      throw error;
+    }
+  },
+
+  async deleteShelf(id: number) {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/prateleiras/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) throw new Error("Erro ao excluir prateleira");
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir prateleira:", error);
+      return false;
+    }
+  },
   
 };
+
+
 

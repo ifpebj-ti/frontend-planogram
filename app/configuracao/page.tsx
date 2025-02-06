@@ -1,47 +1,128 @@
-'use client'; 
+"use client";
+
 import { FaEdit, FaRegCopyright, FaSave } from "react-icons/fa";
-import "./styles.css"; // Importando o CSS
+import "./styles.css";
 import SideNavBar from "../components/SideNavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "../services/api"; 
+
+interface User {
+  id: number;
+  nome: string;
+  email: string;
+  nivel_de_acesso: string;
+}
 
 export default function Configuracoes() {
-
-  const [nomeUsuario, setNomeUsuario] = useState("Maria Lima dos Santos");
-  const [nomeEditado, setNomeEditado] = useState(nomeUsuario);
+  const [nomeUsuario, setNomeUsuario] = useState("");
+  const [nomeEditado, setNomeEditado] = useState("");
+  const [senhaAtual, setSenhaAtual] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
   const [editando, setEditando] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Função para ativar o modo de edição
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const storedUser = localStorage.getItem("user");
+        if (!storedUser) {
+          console.error("Nenhum usuário encontrado no localStorage.");
+          return;
+        }
+  
+        const user = JSON.parse(storedUser);
+        if (!user.id) {
+          console.error("⚠️ ID do usuário não encontrado no localStorage.");
+          return;
+        }
+  
+        console.log("Buscando usuário pelo ID:", user.id);
+  
+        
+        const userData = await api.get<User>(`users/${user.id}`);
+        
+        setNomeUsuario(userData.nome);
+        setNomeEditado(userData.nome);
+      } catch (error) {
+        console.error("Erro ao carregar os dados do usuário:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
+  
+
   const ativarEdicao = () => {
     setEditando(true);
   };
 
-  // Função para salvar o nome atualizado na API
   const salvarNome = async () => {
+    if (!nomeEditado) {
+      alert("O nome não pode estar vazio!");
+      return;
+    }
+  
+    setLoading(true);
+  
     try {
-      // Envia o nome para a API
-      const response = await fetch("/api/salvar-nome", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nome: nomeEditado }),
-      });
-
-      if (response.ok) {
-        alert("Nome salvo com sucesso!");
-        setNomeUsuario(nomeEditado); // Atualiza o nome exibido
-        setEditando(false); // Sai do modo de edição
-      } else {
-        alert("Erro ao salvar o nome!");
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        console.error("Usuário não encontrado no localStorage.");
+        alert("Erro ao encontrar usuário.");
+        return;
       }
+  
+      const user = JSON.parse(storedUser);
+      if (!user.id) {
+        console.error("ID do usuário não encontrado.");
+        alert("Erro ao encontrar ID do usuário.");
+        return;
+      }
+  
+      console.log("Atualizando nome do usuário com ID:", user.id);
+  
+      await api.updateUser(user.id, { nome: nomeEditado });
+  
+      setNomeUsuario(nomeEditado);
+      setEditando(false);
+      alert("Nome atualizado com sucesso!");
     } catch (error) {
-      console.error("Erro ao salvar o nome:", error);
-      alert("Erro ao salvar o nome!");
+      console.error("Erro ao atualizar o nome:", error);
+      alert("Erro ao atualizar o nome.");
+    } finally {
+      setLoading(false);
     }
   };
+  
+
+  const alterarSenha = async () => {
+    if (!senhaAtual || !novaSenha) {
+      alert("Preencha os campos corretamente!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await api.put("users/me/change-password", {
+        senhaAtual,
+        novaSenha,
+      }); 
+      alert("Senha alterada com sucesso!");
+      setSenhaAtual("");
+      setNovaSenha("");
+    } catch (error) {
+      console.error("Erro ao alterar senha:", error);
+      alert("Erro ao alterar senha.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="container">
-      <SideNavBar/>
+      <SideNavBar />
       <main className="content">
         <h1>Configurações</h1>
 
@@ -49,7 +130,7 @@ export default function Configuracoes() {
           <div className="section">
             <h2>Alterar dados pessoais:</h2>
             <div className="input-group">
-            <input
+              <input
                 type="text"
                 value={editando ? nomeEditado : nomeUsuario}
                 readOnly={!editando}
@@ -60,38 +141,57 @@ export default function Configuracoes() {
                 <FaEdit size={20} />
               </button>
             </div>
+            <button
+              className="save-button"
+              onClick={salvarNome}
+              disabled={!editando || loading}
+            >
+              <FaSave />
+              {loading ? "Salvando..." : "Salvar"}
+            </button>
           </div>
 
-          {/* Alterar Senha */}
           <div className="section">
             <h2>Alterar senha:</h2>
             <form>
               <div className="form-group">
                 <label>Nova senha:</label>
-                <input type="password" placeholder="Digite sua nova senha" />
+                <input
+                  type="password"
+                  value={novaSenha}
+                  onChange={(e) => setNovaSenha(e.target.value)}
+                  placeholder="Digite sua nova senha"
+                />
               </div>
               <div className="form-group">
                 <label>Senha atual:</label>
-                <input type="password" placeholder="Digite sua senha atual" />
+                <input
+                  type="password"
+                  value={senhaAtual}
+                  onChange={(e) => setSenhaAtual(e.target.value)}
+                  placeholder="Digite sua senha atual"
+                />
               </div>
               <button
                 type="button"
                 className="save-button"
-                onClick={salvarNome}
-                disabled={!editando} 
+                onClick={alterarSenha}
+                disabled={loading}
               >
                 <FaSave />
-                Salvar
+                {loading ? "Salvando..." : "Salvar"}
               </button>
             </form>
           </div>
         </div>
-        
 
         <footer className="footer">
-          <FaRegCopyright />Todos os direitos reservados - Versão 1.0
+          <FaRegCopyright />
+          Todos os direitos reservados - Versão 1.0
         </footer>
       </main>
     </div>
   );
 }
+
+

@@ -1,9 +1,10 @@
 .container {
     display: flex;
-    height: 100%;
+    height: 100vh;
     background-color: #f5f5f5;
-    width: 100%;
+    width: 100vw;
     margin-top: 0%;
+    position: absolute;
   }
   
   .content {
@@ -40,6 +41,7 @@
   
   .file-input {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 20px auto;
@@ -69,6 +71,13 @@
   .file-input input {
     display: none;
   }
+  .file-name {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+  }
+  
   
   .button-group {
     display: flex;

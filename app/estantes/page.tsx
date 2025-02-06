@@ -1,18 +1,81 @@
-import ShelfSelector from "../components/estante";
-import DSideNavBar from '../components/NavBarAdmin';
+'use client';
+import { useState, useEffect } from 'react';
+import './style.css';
+import Link from 'next/link';
+import { api } from '../services/api';
+import SideNavBar from '../components/SideNavBar';
 
-const shelvesData = [
-  { id: 1, link: '/prateleira1', name: 'Prateleira 1' },
-  { id: 2, link: '/prateleira/2', name: 'Prateleira 2' },
-  { id: 3, link: '/prateleira/3', name: 'Prateleira 3' },
-];
+interface Shelf {
+  id: number;
+  nome: string;
+}
 
-export default function Estantes() {
-  
+export default function ShelfSelector() {
+  const [shelves, setShelves] = useState<Shelf[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchShelves = async () => {
+      try {
+        const response = await api.get<Shelf[]>('shelves');
+        console.log('📦 Dados da API:', response);
+        setShelves(response);
+      } catch (err) {
+        console.error('Erro ao carregar prateleiras:', err);
+        setError('Erro ao carregar as prateleiras.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchShelves();
+  }, []);
+
+  if (loading) return <p>🔄 Carregando prateleiras...</p>;
+  if (error) return <p className="error-message">{error}</p>;
+
+  const groupedShelves = [];
+  for (let i = 0; i < shelves.length; i += 4) {
+    groupedShelves.push(shelves.slice(i, i + 4));
+  }
+
   return (
-    <div >
-      <DSideNavBar/>
-      <ShelfSelector shelves={shelvesData} />
+    <div className="shelf-selector">
+      <SideNavBar />
+      <h1>Bem-vindo ao Slotex</h1>
+      <h2>Selecione a prateleira que deseja visualizar</h2>
+
+      <div className="shelf-container">
+        {groupedShelves.map((group, index) => (
+          <div key={index} className="shelf-section">
+            {group.length >= 1 && (
+              <Link  href={{ pathname: "/prateleira1", query: { id: group[0].id } }} passHref>
+                <button className="shelf-number ">{group[0].nome}</button>
+              </Link>
+            )}
+
+            <div className="shelf-items">
+              {group.slice(1, 3).map((shelf) => (
+                <Link key={shelf.id} href={{ pathname: "/prateleira1", query: { id: shelf.id } }} passHref>
+                  <button className="shelf-item">{shelf.nome}</button>
+                </Link>
+              ))}
+            </div>
+
+            {group.length >= 4 && (
+              <Link href={{ pathname: "/prateleira1", query: { id: group[3].id } }} passHref>
+                <button className="shelf-number ">{group[3].nome}</button>
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <footer className="footer">
+        <p>Todos os direitos reservados - Versão 1.0</p>
+      </footer>
     </div>
   );
 }
+

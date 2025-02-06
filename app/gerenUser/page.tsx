@@ -25,9 +25,14 @@ export default function GerenciarUsuarios() {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const fetchedUsers = await api.getUsers();
-      setUsers(fetchedUsers);
+      try {
+        const fetchedUsers = await api.getUsers();
+        setUsers(fetchedUsers as User[]); // 🔹 Força o tipo para evitar erro
+      } catch (error) {
+        console.error("Erro ao buscar usuários:", error);
+      }
     };
+    
 
     fetchUsers();
   }, []);

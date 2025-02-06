@@ -1,4 +1,4 @@
-/* Container principal cobrindo a tela com fundo semitransparente */
+
 .container {
   position: fixed;
   top: 0;
@@ -55,7 +55,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: #004d66;
+  color: #859093;
   font-size: 2rem;
   cursor: pointer;
 }
@@ -118,7 +118,7 @@
 }
 
 
-/* Rodapé */
+
 .footer {
   text-align: center;
   padding: 0.5rem;

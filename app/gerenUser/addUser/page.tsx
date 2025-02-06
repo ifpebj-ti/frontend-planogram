@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import "./style.css";
-import DSideNavBar from "../../components/NavBarAdmin";
 import { FaRegCopyright, FaSave } from "react-icons/fa";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { api } from "../../services/api";
+import SideNavBar from "../../components/SideNavBar";
 
 export default function AddUser() {
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function AddUser() {
 
   return (
     <div className="container">
-      <DSideNavBar />
+      <SideNavBar />
       <div className="content">
         <button className="back-button" onClick={() => router.back()}>
           <IoIosArrowDropleftCircle className="back-icon" /> Voltar
