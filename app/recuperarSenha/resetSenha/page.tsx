@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./style.css";
 
-export default function resetSenha() {
+export default function ResetSenha() {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [newPassword, setNewPassword] = useState("");
