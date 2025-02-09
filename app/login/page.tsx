@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./style.css";
 import { api } from "../services/api";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -54,7 +55,9 @@ export default function Login() {
             />
             <button type="submit">Entrar</button>
           </form>
-          <a onClick={handleEsqueceu} className="forgot-password">Esqueceu a senha?</a>
+          <Link href="/recuperarSenha" className="forgot-password">
+            Esqueceu a senha?
+          </Link>
         </div>
       </div>
       <footer className="login-footer">

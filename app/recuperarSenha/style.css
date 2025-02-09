@@ -1,0 +1,121 @@
+.recuperar-senha-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start; 
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #21557A, #85CFA5);
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+  
+.recuperar-senha-card {
+    display: flex;
+    width: 700px;
+    height: 400px;
+    max-width: 90%; 
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: auto; 
+}
+  
+.recuperar-senha-image {
+    flex: 1;
+    background: url('/pharmacy-background.png') center/cover no-repeat;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .recuperar-senha-image {
+      display: block;
+    }
+}
+  
+.recuperar-senha-content {
+    flex: 1;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.recuperar-senha-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #002135;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.recuperar-senha-subtext {
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.recuperar-senha-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+label {
+    font-size: 0.875rem;
+    color: #555;
+}
+
+input {
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%; 
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.btn {
+    padding: 10px 30px; 
+    border-radius: 8px;
+    font-size: 1rem; 
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary {
+    background: #21557A;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #16468a;
+}
+
+.btn-secondary {
+    background: #ccc;
+    color: black;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background: #bbb;
+}
+
+.recuperar-senha-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #002135;
+    margin-top: auto; 
+    padding: 16px 0px;
+    width: 100%;
+}
