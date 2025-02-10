@@ -36,11 +36,16 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t mariagabrielly/front-planograma:latest .
-          docker tag mariagabrielly/front-planograma:latest mariagabrielly/front-planograma:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest .
+          docker tag ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest
+     
+      - name: Scan image with Docker Scout
+        run: |
+          docker scout quickview ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest
+          docker scout cves ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest
 
       - name: Push Docker image to Docker Hub
-        run: docker push mariagabrielly/front-planograma:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/front-planograma:latest
         
       - name: Trigger Portainer Webhook
         run: curl -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
