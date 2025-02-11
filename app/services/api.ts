@@ -1,5 +1,4 @@
-//const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-const API_URL="https://backplanograma.website";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
