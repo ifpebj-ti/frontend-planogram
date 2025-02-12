@@ -15,6 +15,7 @@ import TabelaV from '../components/TabelaV/TabelaV';
 import TabelaS from '../components/TabelaSlot/TabelaS';
 
 import './style.css';
+import { IoIosArrowDropleftCircle } from 'react-icons/io';
 
 interface Category {
   id: number;
@@ -60,19 +61,33 @@ function PrateleiraContent() {
     }
   }, [prateleiraId]);
 
-  const fetchProductsByCategory = async (categoria: string) => {
+  const fetchProductsByCategory = async (categoriaId: number) => {
     setLoading(true);
     try {
-      const response = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${categoria}`);
-      setTableData(response);
-      setIsTableOpen(true);
+        console.log(`🔍 Buscando produtos para categoria ID: ${categoriaId}`);
+        
+        const response = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${categoriaId}`);
+        console.log("📦 Produtos carregados:", response);
+
+        if (!response || response.length === 0) {
+            console.warn("⚠️ Nenhum produto encontrado.");
+            alert("Nenhum produto disponível nesta categoria.");
+            return;
+        }
+
+        setTableData(response);
+        setIsTableOpen(true);
+
+        console.log("✅ Tabela deve abrir agora!");
     } catch (error) {
-      console.error('Erro ao buscar produtos:', error);
-      alert('Erro ao carregar os produtos.');
+        console.error("❌ Erro ao buscar produtos:", error);
+        alert("Erro ao carregar os produtos.");
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
+
+
 
   const handleRedirect = () => {
     router.push(`/prateleira1/EditPla?id=${prateleiraId}`);
@@ -106,6 +121,9 @@ function PrateleiraContent() {
       <SideNavBar />
 
       <div className='Prin'>
+        <button className="back-button" onClick={() => router.back()}>
+          <IoIosArrowDropleftCircle className="back-icon" /> Voltar
+        </button>
         <h1>Visão Geral: {prateleiraId ? `Prateleira ${prateleiraId}` : "Carregando..."}</h1>
 
         <div className='centro'>
@@ -130,7 +148,7 @@ function PrateleiraContent() {
                           key={categoria.id}
                           textobotao={categoria.nome}
                           corDeFundo="#A8F0A4"
-                          pressione={() => fetchProductsByCategory(categoria.nome)}
+                          pressione={() => fetchProductsByCategory(categoria.id)} 
                         />
                       ))}
                     </div>
@@ -139,6 +157,7 @@ function PrateleiraContent() {
                   <p style={{ color: 'red' }}>Nenhuma categoria disponível</p>
                 )}
               </div>
+
             </div>
 
             <div 

@@ -25,10 +25,6 @@ export default function Login() {
       setError("Erro no login. Verifique suas credenciais.");
     }
   };
-  const handleEsqueceu = () => {
-    router.push(`/EsqueSenha`);
-  };
-
   return (
     <div className="login-container">
       <div className="login-card">

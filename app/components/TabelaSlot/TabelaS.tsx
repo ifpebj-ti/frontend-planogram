@@ -2,6 +2,7 @@
 
 import React from 'react';
 import './style.css';
+import Footer from '../Footer/Footer';
 
 type TableRow = {
   produto: string;
@@ -29,7 +30,7 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
 
         <div className="tableContainer">
           <div className="tableWrapper">
-            {/* 🔹 Mostra o nome do slot e o ID corretamente */}
+            
             <div className="sideText">{slotText} {slotId ?? 'N/A'}</div>
             <table className="table">
               <thead>
@@ -40,21 +41,28 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.produto}</td>
-                    <td>{item.quantidade}</td>
-                    <td>{item.saida}</td>
+                {data.length > 0 ? (
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.produto || "⚠️ Sem Nome"}</td>
+                      <td>{item.quantidade || 0}</td>
+                      <td>{item.saida || 0}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={3} style={{ textAlign: "center", color: "red" }}>
+                      Nenhum produto encontrado
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
+
             </table>
           </div>
         </div>
 
-        <div className="footer">
-          <p>Todos os direitos reservados - Versão 1.0</p>
-        </div>
+        <Footer/>
       </div>
     </div>
   );

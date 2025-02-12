@@ -3,13 +3,26 @@ const API_URL = 'http://localhost:8080';
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
     const token = localStorage.getItem("token");
+    
+    if (!token) {
+        console.error("❌ Nenhum token encontrado! O usuário pode não estar autenticado.");
+        throw new Error("Usuário não autenticado");
+    }
+
+    console.log("📡 Token usado na requisição:", token);
+
     const res = await fetch(`${API_URL}/${endpoint}`, {
-      headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (!res.ok) throw new Error(`Erro ao buscar dados: ${res.statusText}`);
+    if (!res.ok) {
+      console.error(`❌ Erro ao buscar dados (${res.status}):`, res.statusText);
+      throw new Error(`Erro ao buscar dados: ${res.statusText}`);
+    }
+
     return res.json();
-  },
+},
+
 
   async put<T>(endpoint: string, data: any): Promise<T> {
     const token = localStorage.getItem("token");
@@ -202,6 +215,28 @@ export const api = {
       throw error;
     }
   },
+
+  async uploadPlanilha(file: File): Promise<any> {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch(`${API_URL}/produtos/upload-planilha`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao enviar arquivo: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("❌ Erro no upload da planilha:", error);
+      throw error;
+    }
+  },
+  
   
   
 };

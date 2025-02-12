@@ -1,57 +1,22 @@
 "use client";
 
-import { FaEdit, FaRegCopyright, FaSave } from "react-icons/fa";
+import { useState } from "react";
+import { FaEdit, FaSave } from "react-icons/fa";
 import "./styles.css";
 import SideNavBar from "../components/SideNavBar";
-import { useState, useEffect } from "react";
-import { api } from "../services/api"; 
-
-interface User {
-  id: number;
-  nome: string;
-  email: string;
-  nivel_de_acesso: string;
-}
+import { api } from "../services/api";
+import Footer from "../components/Footer/Footer";
 
 export default function Configuracoes() {
-  const [nomeUsuario, setNomeUsuario] = useState("");
-  const [nomeEditado, setNomeEditado] = useState("");
+  const storedUser = localStorage.getItem("user");
+  const userData = storedUser ? JSON.parse(storedUser) : null;
+  const userId = userData?.id || null;
+
+  const [nomeEditado, setNomeEditado] = useState(userData?.nome || "");
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [editando, setEditando] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const storedUser = localStorage.getItem("user");
-        if (!storedUser) {
-          console.error("Nenhum usuário encontrado no localStorage.");
-          return;
-        }
-  
-        const user = JSON.parse(storedUser);
-        if (!user.id) {
-          console.error("⚠️ ID do usuário não encontrado no localStorage.");
-          return;
-        }
-  
-        console.log("Buscando usuário pelo ID:", user.id);
-  
-        
-        const userData = await api.get<User>(`users/${user.id}`);
-        
-        setNomeUsuario(userData.nome);
-        setNomeEditado(userData.nome);
-      } catch (error) {
-        console.error("Erro ao carregar os dados do usuário:", error);
-      }
-    };
-  
-    fetchUserData();
-  }, []);
-  
-  
 
   const ativarEdicao = () => {
     setEditando(true);
@@ -62,39 +27,31 @@ export default function Configuracoes() {
       alert("O nome não pode estar vazio!");
       return;
     }
-  
+
+    if (!userId) {
+      alert("Erro ao encontrar usuário. Faça login novamente.");
+      return;
+    }
+
     setLoading(true);
-  
+
     try {
-      const storedUser = localStorage.getItem("user");
-      if (!storedUser) {
-        console.error("Usuário não encontrado no localStorage.");
-        alert("Erro ao encontrar usuário.");
-        return;
-      }
-  
-      const user = JSON.parse(storedUser);
-      if (!user.id) {
-        console.error("ID do usuário não encontrado.");
-        alert("Erro ao encontrar ID do usuário.");
-        return;
-      }
-  
-      console.log("Atualizando nome do usuário com ID:", user.id);
-  
-      await api.updateUser(user.id, { nome: nomeEditado });
-  
-      setNomeUsuario(nomeEditado);
+      console.log("📝 Atualizando nome do usuário ID:", userId);
+
+      await api.updateUser(userId, { nome: nomeEditado });
+
+      // Atualiza o nome salvo no localStorage
+      localStorage.setItem("user", JSON.stringify({ ...userData, nome: nomeEditado }));
+
       setEditando(false);
-      alert("Nome atualizado com sucesso!");
+      alert("✅ Nome atualizado com sucesso!");
     } catch (error) {
-      console.error("Erro ao atualizar o nome:", error);
+      console.error("❌ Erro ao atualizar o nome:", error);
       alert("Erro ao atualizar o nome.");
     } finally {
       setLoading(false);
     }
   };
-  
 
   const alterarSenha = async () => {
     if (!senhaAtual || !novaSenha) {
@@ -102,18 +59,26 @@ export default function Configuracoes() {
       return;
     }
 
+    if (!userId) {
+      alert("Erro ao encontrar usuário.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await api.put("users/me/change-password", {
+      console.log("🔑 Alterando senha do usuário ID:", userId);
+
+      await api.put(`users/${userId}/change-password`, {
         senhaAtual,
         novaSenha,
-      }); 
-      alert("Senha alterada com sucesso!");
+      });
+
+      alert("✅ Senha alterada com sucesso!");
       setSenhaAtual("");
       setNovaSenha("");
     } catch (error) {
-      console.error("Erro ao alterar senha:", error);
+      console.error("❌ Erro ao alterar senha:", error);
       alert("Erro ao alterar senha.");
     } finally {
       setLoading(false);
@@ -128,11 +93,11 @@ export default function Configuracoes() {
 
         <div className="card">
           <div className="section">
-            <h2>Alterar dados pessoais:</h2>
+            <h2>Alterar Nome:</h2>
             <div className="input-group">
               <input
                 type="text"
-                value={editando ? nomeEditado : nomeUsuario}
+                value={nomeEditado}
                 readOnly={!editando}
                 onChange={(e) => setNomeEditado(e.target.value)}
                 className={`input ${editando ? "editable" : ""}`}
@@ -152,24 +117,24 @@ export default function Configuracoes() {
           </div>
 
           <div className="section">
-            <h2>Alterar senha:</h2>
+            <h2>Alterar Senha:</h2>
             <form>
               <div className="form-group">
-                <label>Nova senha:</label>
-                <input
-                  type="password"
-                  value={novaSenha}
-                  onChange={(e) => setNovaSenha(e.target.value)}
-                  placeholder="Digite sua nova senha"
-                />
-              </div>
-              <div className="form-group">
-                <label>Senha atual:</label>
+                <label>Senha Atual:</label>
                 <input
                   type="password"
                   value={senhaAtual}
                   onChange={(e) => setSenhaAtual(e.target.value)}
                   placeholder="Digite sua senha atual"
+                />
+              </div>
+              <div className="form-group">
+                <label>Nova Senha:</label>
+                <input
+                  type="password"
+                  value={novaSenha}
+                  onChange={(e) => setNovaSenha(e.target.value)}
+                  placeholder="Digite sua nova senha"
                 />
               </div>
               <button
@@ -185,10 +150,7 @@ export default function Configuracoes() {
           </div>
         </div>
 
-        <footer className="footer">
-          <FaRegCopyright />
-          Todos os direitos reservados - Versão 1.0
-        </footer>
+        <Footer />
       </main>
     </div>
   );
