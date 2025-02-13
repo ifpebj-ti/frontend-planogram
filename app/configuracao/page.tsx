@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
 import "./styles.css";
 import SideNavBar from "../components/SideNavBar";
@@ -8,15 +8,23 @@ import { api } from "../services/api";
 import Footer from "../components/Footer/Footer";
 
 export default function Configuracoes() {
-  const storedUser = localStorage.getItem("user");
-  const userData = storedUser ? JSON.parse(storedUser) : null;
-  const userId = userData?.id || null;
-
-  const [nomeEditado, setNomeEditado] = useState(userData?.nome || "");
+  const [userData, setUserData] = useState<{ id: number; nome: string } | null>(null);
+  const [nomeEditado, setNomeEditado] = useState("");
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [editando, setEditando] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        setUserData(parsedUser);
+        setNomeEditado(parsedUser.nome);
+      }
+    }
+  }, []);
 
   const ativarEdicao = () => {
     setEditando(true);
@@ -28,7 +36,7 @@ export default function Configuracoes() {
       return;
     }
 
-    if (!userId) {
+    if (!userData?.id) {
       alert("Erro ao encontrar usuário. Faça login novamente.");
       return;
     }
@@ -36,13 +44,14 @@ export default function Configuracoes() {
     setLoading(true);
 
     try {
-      console.log("📝 Atualizando nome do usuário ID:", userId);
-
-      await api.updateUser(userId, { nome: nomeEditado });
+      console.log("📝 Atualizando nome do usuário ID:", userData.id);
+      await api.updateUser(userData.id, { nome: nomeEditado });
 
       // Atualiza o nome salvo no localStorage
-      localStorage.setItem("user", JSON.stringify({ ...userData, nome: nomeEditado }));
+      const updatedUser = { ...userData, nome: nomeEditado };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
 
+      setUserData(updatedUser);
       setEditando(false);
       alert("✅ Nome atualizado com sucesso!");
     } catch (error) {
@@ -59,7 +68,7 @@ export default function Configuracoes() {
       return;
     }
 
-    if (!userId) {
+    if (!userData?.id) {
       alert("Erro ao encontrar usuário.");
       return;
     }
@@ -67,9 +76,8 @@ export default function Configuracoes() {
     setLoading(true);
 
     try {
-      console.log("🔑 Alterando senha do usuário ID:", userId);
-
-      await api.put(`users/${userId}/change-password`, {
+      console.log("🔑 Alterando senha do usuário ID:", userData.id);
+      await api.put(`users/${userData.id}/change-password`, {
         senhaAtual,
         novaSenha,
       });
@@ -155,5 +163,4 @@ export default function Configuracoes() {
     </div>
   );
 }
-
 
