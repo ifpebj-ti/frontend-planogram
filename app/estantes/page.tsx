@@ -4,6 +4,7 @@ import './style.css';
 import Link from 'next/link';
 import { api } from '../services/api';
 import SideNavBar from '../components/SideNavBar';
+import Footer from '../components/Footer/Footer';
 
 interface Shelf {
   id: number;
@@ -71,10 +72,7 @@ export default function ShelfSelector() {
           </div>
         ))}
       </div>
-
-      <footer className="footer">
-        <p>Todos os direitos reservados - Versão 1.0</p>
-      </footer>
+      <Footer/>
     </div>
   );
 }

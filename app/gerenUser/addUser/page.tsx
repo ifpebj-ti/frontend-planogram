@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation"; 
+import React, { useState, useEffect } from "react"; 
 import "./style.css";
 import { FaRegCopyright, FaSave } from "react-icons/fa";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
@@ -18,11 +18,19 @@ export default function AddUser() {
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({ nome: false, email: false, senha: false });
 
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login"); 
+    }
+  }, [router]);
+
   const validateFields = () => {
     const errors = {
       nome: nome.trim() === "",
       email: email.trim() === "",
-      senha: senha.trim().length < 6, 
+      senha: senha.trim().length < 6,
     };
     setFieldErrors(errors);
     return !Object.values(errors).includes(true);
@@ -46,7 +54,7 @@ export default function AddUser() {
         nivel_de_acesso: nivelDeAcesso,
       };
 
-      console.log("Enviando payload:", payload); 
+      console.log("Enviando payload:", payload);
 
       await api.post("users", payload);
 
@@ -68,7 +76,7 @@ export default function AddUser() {
           <IoIosArrowDropleftCircle className="back-icon" /> Voltar
         </button>
         <h1>Adicionar novo usuário</h1>
-        
+
         {error && <p className="text-red-500 font-bold">{error}</p>}
 
         <form>
@@ -133,6 +141,7 @@ export default function AddUser() {
     </div>
   );
 }
+
 
 
 

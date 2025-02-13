@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; 
 import "./style.css";
 import SideNavBar from "../components/SideNavBar";
 import VisuaUser from "../components/visuaUser/visuaUser";
-import { useRouter } from "next/navigation";
 import { FaRegCopyright } from "react-icons/fa";
 import { api } from "../services/api";
 
@@ -22,20 +22,26 @@ export default function GerenciarUsuarios() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
-
+ 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login"); 
+      return;
+    }
+
+   
     const fetchUsers = async () => {
       try {
         const fetchedUsers = await api.getUsers();
-        setUsers(fetchedUsers as User[]); // 🔹 Força o tipo para evitar erro
+        setUsers(fetchedUsers as User[]); 
       } catch (error) {
         console.error("Erro ao buscar usuários:", error);
       }
     };
-    
 
     fetchUsers();
-  }, []);
+  }, [router]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -48,10 +54,9 @@ export default function GerenciarUsuarios() {
   );
 
   const openModal = (user: User) => {
-    setSelectedUser(user); 
+    setSelectedUser(user);
     setIsModalOpen(true);
   };
-  
 
   const closeModal = () => {
     setSelectedUser(null);
@@ -59,7 +64,7 @@ export default function GerenciarUsuarios() {
   };
 
   const handleEdit = (user: User) => {
-    router.push(`/gerenUser/editUse?id=${user.id}`); // Use "editUser" com minúsculas
+    router.push(`/gerenUser/editUse?id=${user.id}`);
   };
 
   const handleAddUser = () => {
@@ -71,7 +76,7 @@ export default function GerenciarUsuarios() {
       const success = await api.deleteUser(id);
       if (success) {
         alert("Usuário excluído com sucesso!");
-        setUsers(users.filter(user => user.id !== id)); // Remove usuário da lista sem recarregar
+        setUsers(users.filter(user => user.id !== id));
       } else {
         alert("Erro ao excluir usuário.");
       }
@@ -124,4 +129,3 @@ export default function GerenciarUsuarios() {
     </div>
   );
 }
-

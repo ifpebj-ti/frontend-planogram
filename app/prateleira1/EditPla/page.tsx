@@ -8,6 +8,8 @@ import SideNavBar from "../../components/SideNavBar";
 import ButtonV from "../../components/ButtonVisual/ButtonV";
 import TabelaA from "../../components/TabelaAdd/TabelaAdd"; 
 import { api } from "../../services/api";
+import router from "next/router";
+import { IoIosArrowDropleftCircle } from "react-icons/io";
 
 interface Shelf {
   id: number;
@@ -82,24 +84,27 @@ function EditarPratileiraContent() {
       <SideNavBar />
 
       <main className="content">
+        <button className="back-button" onClick={() => router.back()}>
+          <IoIosArrowDropleftCircle className="back-icon" /> Voltar
+        </button>
         <h1>Editar {shelf ? `${shelf.nome}` : "Carregando..."}</h1>
 
         <div className="centro">
           <div className="pratileira">
             <div
               style={{
-                width: "500px",
-                height: "600px",
+                width: '500px',
+                height: '600px',
                 backgroundImage: `url('/estante.png')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                position: "relative",
-                padding: "5%",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                position: 'relative',
+                padding: '5%',
               }}
             >
               <div className=".shelf-slot">
                 {shelves.map((row, rowIdx) => (
-                  <div key={rowIdx} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
+                  <div key={rowIdx} style={{ display: "flex", gap: "20px", marginTop: "20px", alignContent: "center", marginLeft: "4%" }}>
                     {row.map((slot, colIdx) => (
                       <Button
                         key={`${rowIdx}-${colIdx}`}
@@ -119,12 +124,12 @@ function EditarPratileiraContent() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "20px",
+                gap: "10px",
                 backgroundColor: "#EFF0F0",
-                padding: "20px",
+                padding: "10px",
               }}
             >
-              <div className="flex justify-center items-center h-screen bg-gray-100 m-4">
+              <div className="button-clear">
                 <ButtonV label="Limpar" onClick={limparPratileira} />
               </div>
             </div>

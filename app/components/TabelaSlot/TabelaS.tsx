@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
+import Footer from '../Footer/Footer';
 
 type TableRow = {
-  produto: string;
+  nome: string;
   quantidade: number;
   saida: number;
 };
@@ -18,6 +19,16 @@ interface TabelaSProps {
 }
 
 const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', slotText = 'Slot', slotId }) => {
+  console.log("📊 Dados recebidos pela TabelaS:", data); 
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcular o índice dos produtos que serão exibidos na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
+
   return (
     <div className="container">
       <div className="card">
@@ -29,8 +40,8 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
 
         <div className="tableContainer">
           <div className="tableWrapper">
-            {/* 🔹 Mostra o nome do slot e o ID corretamente */}
             <div className="sideText">{slotText} {slotId ?? 'N/A'}</div>
+            
             <table className="table">
               <thead>
                 <tr>
@@ -40,25 +51,50 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.produto}</td>
-                    <td>{item.quantidade}</td>
-                    <td>{item.saida}</td>
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.nome || "⚠️ Sem Nome"}</td>  
+                      <td>{item.quantidade !== null ? item.quantidade : 0}</td>  
+                      <td>{item.saida !== undefined ? item.saida : "N/A"}</td>  
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={3} style={{ textAlign: "center", color: "red" }}>
+                      Nenhum produto encontrado
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
+
           </div>
+          <div className="pagination">
+              <button 
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+                disabled={currentPage === 0}
+              >
+                ⬅ Página Anterior
+              </button>
+              
+              <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
+              
+              <button 
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
+                disabled={endIndex >= data.length}
+              >
+                Próxima Página ➡
+              </button>
+            </div>
         </div>
 
-        <div className="footer">
-          <p>Todos os direitos reservados - Versão 1.0</p>
-        </div>
+        <Footer/>
       </div>
     </div>
   );
 };
 
 export default TabelaS;
+
 

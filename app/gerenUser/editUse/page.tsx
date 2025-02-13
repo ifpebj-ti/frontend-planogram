@@ -24,6 +24,14 @@ function EditUserComponent() {
   const [role, setRole] = useState("Comum");
   const [loading, setLoading] = useState(false);
 
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login"); 
+    }
+  }, [router]);
+
   useEffect(() => {
     const userId = searchParams.get("id");
     if (userId) {
@@ -126,4 +134,3 @@ export default function EditUserPage() {
     </Suspense>
   );
 }
-

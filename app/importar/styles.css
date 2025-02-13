@@ -53,19 +53,19 @@
     background-color: #f9f9f9;
   }
   
-  .file-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #21557A;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
+  .importar-file-label {
     cursor: pointer;
-    font-size: 14px;
-    width: 200px;
-    height: 40px;
-    text-align: center;
+    background-color: #003b68;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .importar-file-label:hover {
+    background-color: #00528d;
   }
   
   .file-input input {
