@@ -24,7 +24,7 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
 
-  // Calcular o índice dos produtos que serão exibidos na página atual
+ 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = data.slice(startIndex, endIndex);
