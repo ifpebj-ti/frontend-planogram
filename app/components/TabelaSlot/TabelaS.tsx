@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import Footer from '../Footer/Footer';
 
 type TableRow = {
-  produto: string;
+  nome: string;
   quantidade: number;
   saida: number;
 };
@@ -19,6 +19,16 @@ interface TabelaSProps {
 }
 
 const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', slotText = 'Slot', slotId }) => {
+  console.log("📊 Dados recebidos pela TabelaS:", data); 
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcular o índice dos produtos que serão exibidos na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
+
   return (
     <div className="container">
       <div className="card">
@@ -30,8 +40,8 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
 
         <div className="tableContainer">
           <div className="tableWrapper">
-            
             <div className="sideText">{slotText} {slotId ?? 'N/A'}</div>
+            
             <table className="table">
               <thead>
                 <tr>
@@ -41,12 +51,12 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
                 </tr>
               </thead>
               <tbody>
-                {data.length > 0 ? (
-                  data.map((item, index) => (
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.produto || "⚠️ Sem Nome"}</td>
-                      <td>{item.quantidade || 0}</td>
-                      <td>{item.saida || 0}</td>
+                      <td>{item.nome || "⚠️ Sem Nome"}</td>  
+                      <td>{item.quantidade !== null ? item.quantidade : 0}</td>  
+                      <td>{item.saida !== undefined ? item.saida : "N/A"}</td>  
                     </tr>
                   ))
                 ) : (
@@ -57,9 +67,26 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
                   </tr>
                 )}
               </tbody>
-
             </table>
+
           </div>
+          <div className="pagination">
+              <button 
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+                disabled={currentPage === 0}
+              >
+                ⬅ Página Anterior
+              </button>
+              
+              <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
+              
+              <button 
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
+                disabled={endIndex >= data.length}
+              >
+                Próxima Página ➡
+              </button>
+            </div>
         </div>
 
         <Footer/>
@@ -69,4 +96,5 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
 };
 
 export default TabelaS;
+
 

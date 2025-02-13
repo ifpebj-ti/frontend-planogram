@@ -16,6 +16,7 @@ import TabelaS from '../components/TabelaSlot/TabelaS';
 
 import './style.css';
 import { IoIosArrowDropleftCircle } from 'react-icons/io';
+import Footer from '../components/Footer/Footer';
 
 interface Category {
   id: number;
@@ -38,9 +39,7 @@ function PrateleiraContent() {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isTableOpen, setIsTableOpen] = useState(false);
-  const [tableData, setTableData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     if (prateleiraId) {
@@ -61,32 +60,38 @@ function PrateleiraContent() {
     }
   }, [prateleiraId]);
 
-  const fetchProductsByCategory = async (categoriaId: number) => {
+  const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchProductsBySlot = async (slotId: number) => {
     setLoading(true);
+    setSelectedSlot(slotId);
     try {
-        console.log(`🔍 Buscando produtos para categoria ID: ${categoriaId}`);
-        
-        const response = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${categoriaId}`);
-        console.log("📦 Produtos carregados:", response);
-
-        if (!response || response.length === 0) {
-            console.warn("⚠️ Nenhum produto encontrado.");
-            alert("Nenhum produto disponível nesta categoria.");
-            return;
-        }
-
-        setTableData(response);
-        setIsTableOpen(true);
-
-        console.log("✅ Tabela deve abrir agora!");
+      console.log(`🔍 Buscando produtos para slot ID: ${slotId}`);
+  
+      const response = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${slotId}/detalhados`);
+      console.log("📦 Produtos carregados:", response);
+  
+      if (!response || response.length === 0) {
+        console.warn("⚠️ Nenhum produto encontrado.");
+        alert("Nenhum produto disponível neste slot.");
+        return;
+      }
+  
+      setTableData(response);
+      setIsTableOpen(true);
+  
+      console.log("✅ isTableOpen foi atualizado para TRUE!");
     } catch (error) {
-        console.error("❌ Erro ao buscar produtos:", error);
-        alert("Erro ao carregar os produtos.");
+      console.error("❌ Erro ao buscar produtos:", error);
+      alert("Erro ao carregar os produtos.");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
-
+  };
+  
 
 
   const handleRedirect = () => {
@@ -130,8 +135,8 @@ function PrateleiraContent() {
           <div className='containerPratileira1'>
             <div
               style={{
-                width: '500px',
-                height: '600px',
+                width: '450px',
+                height: '550px',
                 backgroundImage: `url('/estante.png')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -140,26 +145,32 @@ function PrateleiraContent() {
               }}
             >
               <div className="category-buttons-container">
-                {groupedCategories.length > 0 ? (
-                  groupedCategories.map((row, rowIndex) => (
-                    <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
-                      {row.map((categoria) => (
-                        <Button
-                          key={categoria.id}
-                          textobotao={categoria.nome}
-                          corDeFundo="#A8F0A4"
-                          pressione={() => fetchProductsByCategory(categoria.id)} 
-                        />
-                      ))}
-                    </div>
-                  ))
-                ) : (
-                  <p style={{ color: 'red' }}>Nenhuma categoria disponível</p>
-                )}
+              {categories.length > 0 ? (
+                categories.reduce((acc, slot, index) => {
+                  if (index % 4 === 0) acc.push([]);
+                  acc[acc.length - 1].push(slot);
+                  return acc;
+                }, [] as Category[][]).map((row, rowIndex) => (
+                  <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
+                    {row.map((slot) => (
+                      <Button
+                        key={slot.id}
+                        textobotao={slot.nome}
+                        corDeFundo="#A8F0A4"
+                        pressione={() => {
+                          console.log(`🖱️ Botão do slot ${slot.id} clicado!`);
+                          fetchProductsBySlot(slot.id);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <p style={{ color: "red" }}>Nenhum slot disponível</p>
+              )}
+
               </div>
-
             </div>
-
             <div 
               style={{
                 display: 'flex',
@@ -186,20 +197,18 @@ function PrateleiraContent() {
               {isModalOpen && <TabelaV onClose={handleCloseModal} />}
               {isTableOpen && (
                 <TabelaS
-                  onClose={handleCloseTable}
+                  onClose={() => setIsTableOpen(false)}
                   data={tableData}
                   title={`Prateleira ${prateleiraId}`}
-                  slotText="Slot 001"
+                  slotText="Slot"
+                  slotId={selectedSlot ?? undefined} 
                 />
               )}
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
-
-      <footer className="footer">
-        <FaRegCopyright />Todos os direitos reservados
-      </footer>
     </div>
   );
 }
