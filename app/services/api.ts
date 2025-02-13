@@ -1,4 +1,4 @@
-const API_URL="https://backplanograma.website";
+const API_URL="http://localhost:8080";
 
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
@@ -96,7 +96,7 @@ export const api = {
 
   async getUsers() {
     try {
-      return await api.get("users");
+      return await api.get(`/users`);
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
       return [];
@@ -133,7 +133,7 @@ export const api = {
   },
 
   async updateUser(id: number, data: any) {
-    return await api.put(`users/${id}`, data);
+    return await api.put(`/users/${id}`, data);
   },
 
   async uploadFile(endpoint: string, formData: FormData): Promise<any> {
@@ -158,7 +158,7 @@ export const api = {
 
   async getShelves() {
     try {
-      return await api.get("prateleiras");
+      return await api.get(`${API_URL}/prateleiras`);
     } catch (error) {
       console.error("Erro ao buscar prateleiras:", error);
       return [];
@@ -167,7 +167,7 @@ export const api = {
 
   async getShelfById(id: number) {
     try {
-      return await api.get(`prateleiras/${id}`);
+      return await api.get(`/prateleiras/${id}`);
     } catch (error) {
       console.error("Erro ao buscar prateleira:", error);
       throw error;
@@ -185,7 +185,7 @@ export const api = {
 
   async updateShelf(id: number, data: { name: string; link: string }) {
     try {
-      return await api.put(`prateleiras/${id}`, data);
+      return await api.put(`/prateleiras/${id}`, data);
     } catch (error) {
       console.error("Erro ao atualizar prateleira:", error);
       throw error;
@@ -209,7 +209,7 @@ export const api = {
   },
   async getProductsByCategory(categoryId: number) {
     try {
-      return await api.get(`categories/${categoryId}/produtos`);
+      return await api.get(`/categories/${categoryId}/produtos`);
     } catch (error) {
       console.error("Erro ao buscar produtos da categoria:", error);
       throw error;
@@ -218,7 +218,7 @@ export const api = {
 
   async uploadPlanilha(file: File): Promise<any> {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("planilha", file);
 
     try {
       const response = await fetch(`${API_URL}/produtos/upload-planilha`, {
