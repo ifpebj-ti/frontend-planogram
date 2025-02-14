@@ -1,4 +1,4 @@
-const API_URL="http:backplanograma.website";
+const API_URL="https://backplanograma.website";
 
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
