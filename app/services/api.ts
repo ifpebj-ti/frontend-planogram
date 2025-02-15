@@ -97,7 +97,7 @@ export const api = {
 
   async getUsers() {
     try {
-      return await api.get(`/users`);
+      return await api.get("users");
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
       return [];
@@ -134,7 +134,7 @@ export const api = {
   },
 
   async updateUser(id: number, data: any) {
-    return await api.put(`/users/${id}`, data);
+    return await api.put(`users/${id}`, data);
   },
 
   async uploadFile(endpoint: string, formData: FormData): Promise<any> {
@@ -159,7 +159,7 @@ export const api = {
 
   async getShelves() {
     try {
-      return await api.get(`${API_URL}/prateleiras`);
+      return await api.get("prateleiras");
     } catch (error) {
       console.error("Erro ao buscar prateleiras:", error);
       return [];
@@ -168,7 +168,7 @@ export const api = {
 
   async getShelfById(id: number) {
     try {
-      return await api.get(`/prateleiras/${id}`);
+      return await api.get(`prateleiras/${id}`);
     } catch (error) {
       console.error("Erro ao buscar prateleira:", error);
       throw error;

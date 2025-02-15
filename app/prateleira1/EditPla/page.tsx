@@ -107,8 +107,9 @@ function EditarPratileiraContent() {
               </div>
             </div>
           </div>
+          <Footer/>
         </div>
-        <Footer/>
+       
       </main>
 
       {isTabelaOpen && <TabelaA onClose={() => setIsTabelaOpen(false)} categoryId={selectedCategoryId} />}
