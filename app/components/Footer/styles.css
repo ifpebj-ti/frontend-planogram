@@ -10,8 +10,8 @@
     gap: 8px; 
     text-align: center;
     color: #666;
-    padding: 1rem;
-    background-color: transparent;
+    padding: 2rem;
+    background-color: #EFF0F0;
     flex-direction: row;
 }
 

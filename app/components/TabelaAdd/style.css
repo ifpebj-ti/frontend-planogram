@@ -14,6 +14,7 @@
   .card {
     width: 100%;
     max-width: 800px;
+    height: 500px;
     background-color: #EFF0F0;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -37,7 +38,7 @@
     display: flex;
     justify-content: flex-end; 
     align-items: center;
-    padding: 1rem;
+    padding-right: 1rem;
     position: relative;
   }
   
@@ -53,7 +54,7 @@
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     color: #4c5558;
   }
   
@@ -63,18 +64,46 @@
   }
   
   .tableContainer {
-    padding: 1rem;
+    padding: 0.5rem;
     display: flex;
     justify-content: center;
   }
   
+  .tableContainer {
+    padding-top: 0.5rem;
+    overflow-x: auto;
+    max-height: 400px; 
+    overflow-y: auto;
+  }
+  
   .table {
-    width: 80%; 
-    max-width: 600px; 
-    border-collapse: collapse;
-    margin: 0 auto; 
-    border-radius: 15px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
     overflow: hidden;
+    background-color: #ffffff;
+  }
+  
+  .table thead tr {
+    background-color: #004d66;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #e0f2f1;
+  }
+  
+  .table tbody tr {
+    background-color: #a5ebcc;
   }
   
   
@@ -99,15 +128,41 @@
     align-items: center;
     margin-top: 1rem; 
   }
-  
-  
-  .footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.875rem;
-    color: #6b7280;
-    background-color: transparent;
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 50px;
   }
+  
+  .pagination button {
+    background-color: #004d66;
+    color: white;
+    font-size: 0.9rem;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .pagination button:hover {
+    background-color: #006f87;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #004d66;
+  }
+  
   
  
 

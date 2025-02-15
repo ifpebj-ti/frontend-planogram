@@ -1,20 +1,19 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import "./style.css";
 import Button from "../../components/Button/Button";
 import SideNavBar from "../../components/SideNavBar";
 import ButtonV from "../../components/ButtonVisual/ButtonV";
-import TabelaA from "../../components/TabelaAdd/TabelaAdd"; 
+import TabelaA from "../../components/TabelaAdd/TabelaAdd";
 import { api } from "../../services/api";
-import router from "next/router";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
+import Footer from "../../components/Footer/Footer";
 
-interface Shelf {
+interface Category {
   id: number;
   nome: string;
-  produtos: { id: number; nome: string; quantidade: number }[];
 }
 
 export default function EditarPratileira() {
@@ -26,57 +25,29 @@ export default function EditarPratileira() {
 }
 
 function EditarPratileiraContent() {
-  const searchParams = useSearchParams();
-  const prateleiraId = searchParams.get("id");
+  const router = useRouter();
 
-  const [shelf, setShelf] = useState<Shelf | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isTabelaOpen, setIsTabelaOpen] = useState(false);
-  const [shelves, setShelves] = useState<string[][]>([
-    ["empty", "empty", "empty", "empty"],
-    ["empty", "empty", "empty", "empty"],
-    ["empty", "empty", "empty", "empty"],
-    ["empty", "empty", "empty", "empty"],
-  ]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
   useEffect(() => {
-    if (prateleiraId) {
-      const fetchShelfData = async () => {
-        try {
-          const response = await api.get<Shelf>(`shelves/${prateleiraId}`);
-          setShelf(response);
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get<Category[]>("categories");
+        console.log("📦 Categorias carregadas:", response);
+        setCategories(response);
+      } catch (error) {
+        console.error("❌ Erro ao buscar categorias:", error);
+      }
+    };
 
-          // Atualiza os slots com os produtos existentes
-          const updatedShelves = shelves.map((row, rowIdx) =>
-            row.map((_, colIdx) =>
-              response.produtos[rowIdx * row.length + colIdx]?.nome || "empty"
-            )
-          );
-          setShelves(updatedShelves);
-        } catch (error) {
-          console.error("Erro ao buscar prateleira:", error);
-        }
-      };
+    fetchCategories();
+  }, []);
 
-      fetchShelfData();
-    }
-  }, [prateleiraId]);
-
-  const limparPratileira = () => {
-    setShelves(shelves.map((row) => row.map(() => "empty")));
-  };
-
-  const adicionarItem = () => {
+  const abrirTabela = (categoryId: number) => {
+    setSelectedCategoryId(categoryId);
     setIsTabelaOpen(true);
-  };
-
-  const removerItem = (rowIdx: number, colIdx: number) => {
-    const updatedShelves = [...shelves];
-    updatedShelves[rowIdx][colIdx] = "empty";
-    setShelves(updatedShelves);
-  };
-
-  const fecharTabela = () => {
-    setIsTabelaOpen(false);
   };
 
   return (
@@ -87,14 +58,14 @@ function EditarPratileiraContent() {
         <button className="back-button" onClick={() => router.back()}>
           <IoIosArrowDropleftCircle className="back-icon" /> Voltar
         </button>
-        <h1>Editar {shelf ? `${shelf.nome}` : "Carregando..."}</h1>
+        <h1>Editar Prateleira</h1>
 
         <div className="centro">
           <div className="pratileira">
             <div
               style={{
-                width: '500px',
-                height: '600px',
+                width: '470px',
+                height: '520px',
                 backgroundImage: `url('/estante.png')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -102,19 +73,21 @@ function EditarPratileiraContent() {
                 padding: '5%',
               }}
             >
-              <div className=".shelf-slot">
-                {shelves.map((row, rowIdx) => (
-                  <div key={rowIdx} style={{ display: "flex", gap: "20px", marginTop: "20px", alignContent: "center", marginLeft: "4%" }}>
-                    {row.map((slot, colIdx) => (
+              <div className="category-container">
+                <div className="category-buttons-container">
+                  {categories.length > 0 ? (
+                    categories.map((category) => (
                       <Button
-                        key={`${rowIdx}-${colIdx}`}
-                        textobotao={slot === "empty" ? "+" : slot}
-                        corDeFundo={slot === "empty" ? "#CCCCCC" : "#A8F0A4"}
-                        pressione={slot === "empty" ? adicionarItem : () => removerItem(rowIdx, colIdx)}
+                        key={category.id}
+                        textobotao={category.nome}
+                        corDeFundo="#A8F0A4"
+                        pressione={() => abrirTabela(category.id)}
                       />
-                    ))}
-                  </div>
-                ))}
+                    ))
+                  ) : (
+                    <p style={{ color: "red" }}>Nenhuma categoria encontrada.</p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -130,19 +103,20 @@ function EditarPratileiraContent() {
               }}
             >
               <div className="button-clear">
-                <ButtonV label="Limpar" onClick={limparPratileira} />
+                <ButtonV label="Limpar" onClick={() => console.log("Limpar")} />
               </div>
             </div>
           </div>
+          <Footer/>
         </div>
-
-        <footer className="footer">Todos os direitos reservados - Versão 1.0</footer>
+       
       </main>
 
-      {isTabelaOpen && <TabelaA onClose={fecharTabela} />}
+      {isTabelaOpen && <TabelaA onClose={() => setIsTabelaOpen(false)} categoryId={selectedCategoryId} />}
     </div>
   );
 }
+
 
 
 

@@ -1,3 +1,4 @@
+
 const API_URL="https://backplanograma.website";
 
 export const api = {
@@ -96,7 +97,7 @@ export const api = {
 
   async getUsers() {
     try {
-      return await api.get(`/users`);
+      return await api.get("users");
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
       return [];
@@ -133,7 +134,7 @@ export const api = {
   },
 
   async updateUser(id: number, data: any) {
-    return await api.put(`/users/${id}`, data);
+    return await api.put(`users/${id}`, data);
   },
 
   async uploadFile(endpoint: string, formData: FormData): Promise<any> {
@@ -158,7 +159,7 @@ export const api = {
 
   async getShelves() {
     try {
-      return await api.get(`${API_URL}/prateleiras`);
+      return await api.get("prateleiras");
     } catch (error) {
       console.error("Erro ao buscar prateleiras:", error);
       return [];
@@ -167,7 +168,7 @@ export const api = {
 
   async getShelfById(id: number) {
     try {
-      return await api.get(`/prateleiras/${id}`);
+      return await api.get(`prateleiras/${id}`);
     } catch (error) {
       console.error("Erro ao buscar prateleira:", error);
       throw error;
@@ -218,25 +219,82 @@ export const api = {
 
   async uploadPlanilha(file: File): Promise<any> {
     const formData = new FormData();
-    formData.append("planilha", file);
-
+    formData.append("planilha", file); 
+  
     try {
+      console.log("📂 Enviando planilha para API:", file.name);
+      
       const response = await fetch(`${API_URL}/produtos/upload-planilha`, {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
       });
-
+  
+      console.log("📡 Resposta da API:", response);
+  
       if (!response.ok) {
-        throw new Error(`Erro ao enviar arquivo: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error(`❌ Erro ao enviar arquivo: ${errorText}`);
+        throw new Error(`Erro ao enviar arquivo: ${errorText}`);
       }
-
-      return await response.json();
+  
+      const result = await response.json();
+      return result;
     } catch (error) {
       console.error("❌ Erro no upload da planilha:", error);
       throw error;
     }
   },
-  
+  async getProductsByShelf(shelveId: number): Promise<{ cod_slot: string; produto: string; quantidade: number; saida: number }[]> {
+    try {
+        console.log(`📡 Buscando produtos detalhados da prateleira ID: ${shelveId}`);
+        
+        const response = await api.get<{ cod_slot: string; produto: string; quantidade: number | null; saida: number | null }[]>(
+            `shelves/${shelveId}/produtos/detalhado`
+        );
+
+        
+        const formattedData = response.map(item => ({
+            cod_slot: String(item.cod_slot), 
+            produto: item.produto,
+            quantidade: item.quantidade ?? 0, 
+            saida: item.saida ?? 0, 
+        }));
+
+        console.log("📦 Produtos processados:", formattedData);
+        return formattedData;
+    } catch (error) {
+        console.error("❌ Erro ao buscar produtos detalhados:", error);
+        throw error;
+    }
+},
+async getTotalProdutos(): Promise<number> {
+  try {
+    const response = await api.get<{ total: number }>("produtos/total");
+
+    console.log("📦 Total de produtos recebidos:", response.total);
+
+    return response.total;
+  } catch (error) {
+    console.error("❌ Erro ao buscar total de produtos:", error);
+    return 0; 
+  }
+},
+
+async getAllCategories(): Promise<{ id: number; nome: string }[]> {
+  try {
+    console.log("📡 Buscando todas as categorias...");
+    const response = await api.get<{ id: number; nome: string }[]>("categories");
+    console.log("📦 Categorias carregadas:", response);
+    return response;
+  } catch (error) {
+    console.error("❌ Erro ao buscar categorias:", error);
+    return [];
+  }
+},
+
   
   
 };

@@ -1,5 +1,5 @@
 .container {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -20,8 +20,9 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   animation: slideDown 0.3s ease-out;
   overflow: hidden;
-  padding-bottom: 1rem; 
+  padding-bottom: 1rem;
   height: 90%;
+  max-height: 500px;
 }
 
 @keyframes slideDown {
@@ -33,14 +34,6 @@
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-.title {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  color: #004d66;
 }
 
 .header {
@@ -56,7 +49,6 @@
   color: #859093;
   font-size: 2rem;
   cursor: pointer;
-  
 }
 
 .tableWrapper {
@@ -80,6 +72,9 @@
 .tableContainer {
   padding: 1rem;
   overflow-x: auto;
+  max-height: 400px; 
+  overflow-y: auto;
+  margin-top: 10%;
 }
 
 .table {
@@ -96,6 +91,9 @@
   color: white;
   text-transform: uppercase;
   font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .table th,
@@ -109,13 +107,13 @@
   background-color: #a5ebcc;
 }
 
-/* ✅ Estilização da Paginação */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
   margin-top: 15px;
+  margin-bottom: 50px;
 }
 
 .pagination button {
@@ -144,11 +142,5 @@
   color: #004d66;
 }
 
-.footer {
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  color: #004d66;
-  margin-top: 1rem;
-  background-color: #e0f2f1;
-}
+
+

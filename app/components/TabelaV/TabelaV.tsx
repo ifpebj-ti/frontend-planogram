@@ -1,39 +1,27 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import './style.css';
+import React, { useState } from "react";
+import "./style.css";
+import Footer from "../Footer/Footer";
 
-type ShelfData = {
-  codigoSlot: string;
-  produto: string;
-  quantidade: number;
-  saida: number;
-};
-
-interface ShelfViewProps {
+interface TabelaVProps {
   onClose: () => void;
+  data: {
+    cod_slot: string;
+    produto: string;
+    quantidade: number | null;
+    saida: number | null;
+  }[];
+  title?: string;
 }
 
-const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
-  const [data, setData] = useState<ShelfData[]>([]);
-  const [loading, setLoading] = useState(true);
+const TabelaV: React.FC<TabelaVProps> = ({ onClose, data, title }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
 
-  const mockData: ShelfData[] = [
-    { codigoSlot: '0001', produto: 'Produto A', quantidade: 10, saida: 2 },
-    { codigoSlot: '0002', produto: 'Produto B', quantidade: 15, saida: 5 },
-    { codigoSlot: '0003', produto: 'Produto C', quantidade: 8, saida: 1 },
-  ];
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setData(mockData);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
 
   return (
     <div className="container">
@@ -45,41 +33,60 @@ const TabelaV: React.FC<ShelfViewProps> = ({ onClose }) => {
         </div>
 
         <div className="tableContainer">
-          {loading ? (
-            <p className="text-center py-6">Carregando...</p>
-          ) : (
+          {paginatedData.length > 0 ? (
             <table className="table">
               <thead>
-                <tr className="tableHead">
-                  <th className="tableCell">Cód Slot</th>
-                  <th className="tableCell">Produto</th>
-                  <th className="tableCell">Qntd.</th>
-                  <th className="tableCell">Saída</th>
+                <tr>
+                  <th>Cod. Slot</th>
+                  <th>Produto</th>
+                  <th>Qntd.</th>
+                  <th>Saída</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index} className="rowOdd">
-                    <td className="tableCell">{item.codigoSlot}</td>
-                    <td className="tableCell">{item.produto}</td>
-                    <td className="tableCell">{item.quantidade}</td>
-                    <td className="tableCell">{item.saida}</td>
+                {paginatedData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.cod_slot || "N/A"}</td>
+                    <td>{item.produto || "⚠️ Sem Nome"}</td>
+                    <td>{item.quantidade ?? 0}</td>
+                    <td>{item.saida ?? "N/A"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          ) : (
+            <p className="text-center py-6" style={{ color: "red" }}>Nenhum produto encontrado</p>
           )}
         </div>
 
-        <div className="footer">
-          <p>Todos os direitos reservados - Versão 1.0</p>
+        <div className="pagination">
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+            disabled={currentPage === 0}
+          >
+            ⬅ Página Anterior
+          </button>
+          
+          <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
+          
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
+            disabled={endIndex >= data.length}
+          >
+            Próxima Página ➡
+          </button>
         </div>
+
+        <Footer />
       </div>
     </div>
   );
 };
 
 export default TabelaV;
+
+
+
 
 
 

@@ -21,6 +21,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     animation: slideDown 0.3s ease-out;
+    justify-items: center;
   }
   
   @keyframes slideDown {
@@ -54,7 +55,7 @@
   .closeButton {
     background: none;
     border: none;
-    color: #004d66;
+    color: #717a7d;
     font-size: 3rem;
     justify-content: flex-end;
     cursor: pointer;
@@ -63,8 +64,9 @@
   
   .tableContainer {
     overflow-x: auto;
-    padding: 1rem;
+    padding: 0.5rem;
     background-color: transparent;
+    width: 700px;
 
   }
   
@@ -92,14 +94,40 @@
   .rowOdd {
     background-color: #a5ebcc;
   }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+  }
   
+  .pagination button {
+    background-color: #004d66;
+    color: white;
+    font-size: 0.9rem;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
   
-  .footer {
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.875rem;
-    color: #6b7280;
-    background-color: transparent;
+  .pagination button:hover {
+    background-color: #006f87;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #004d66;
   }
   
   .tabela-title {

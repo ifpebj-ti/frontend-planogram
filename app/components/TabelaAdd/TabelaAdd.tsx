@@ -1,42 +1,55 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import './style.css';
-import ButtonV from '../ButtonVisual/ButtonV';
+import React, { useEffect, useState } from "react";
+import "./style.css";
+import ButtonV from "../ButtonVisual/ButtonV";
+import { api } from "../../services/api";
+import { useRouter } from "next/navigation";
 
-type ShelfData = {
+type Product = {
   produto: string;
   quantidade: number;
 };
 
-interface ShelfViewProps {
+interface TabelaAProps {
   onClose: () => void;
+  categoryId: number | null;
 }
 
-const TabelaAdd: React.FC<ShelfViewProps> = ({ onClose }) => {
-  const [data, setData] = useState<ShelfData[]>([]);
+const TabelaA: React.FC<TabelaAProps> = ({ onClose, categoryId }) => {
+  const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
 
-  const mockData: ShelfData[] = [
-    { produto: 'Produto A', quantidade: 10},
-    { produto: 'Produto B', quantidade: 15},
-    { produto: 'Produto C', quantidade: 8},
-  ];
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProducts = async () => {
+      if (!categoryId) return;
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setData(mockData);
-      setLoading(false);
+      try {
+        const response = await api.get<Product[]>(`produtos/categoria/${categoryId}/detalhados`);
+        console.log("📦 Produtos carregados:", response);
+        setData(response);
+      } catch (error) {
+        console.error("❌ Erro ao buscar produtos:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [categoryId]);
 
-  function handleRedirect(): void {
-    throw new Error('Function not implemented.');
-  }
+  const handleAddProduct = () => {
+    router.push("/importar"); 
+  };
+
+
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = data.slice(startIndex, endIndex);
 
   return (
     <div className="container">
@@ -46,38 +59,65 @@ const TabelaAdd: React.FC<ShelfViewProps> = ({ onClose }) => {
             &times;
           </button>
         </div>
-        <h1>Selecione os produtos que deseja adicionar ao slot da prateleira</h1>
+        <h1>Produtos da Categoria</h1>
+
         <div className="tableContainer">
           {loading ? (
             <p className="text-center py-6">Carregando...</p>
           ) : (
             <table className="table">
               <thead>
-                <tr className="tableHead">
-                  <th className="tableCell">Produto</th>
-                  <th className="tableCell">Qntd.</th>
+                <tr>
+                  <th>Produto</th>
+                  <th>Qntd.</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index} className="rowOdd">
-                    <td className="tableCell">{item.produto}</td>
-                    <td className="tableCell">{item.quantidade}</td>
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.produto}</td>
+                      <td>{item.quantidade}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={2} style={{ textAlign: "center", color: "red" }}>
+                      Nenhum produto encontrado
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           )}
         </div>
-        <div className="buttonContainer">
-          <ButtonV label="+ Adicionar" onClick={handleRedirect} />
+
+        <div className="pagination">
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+            disabled={currentPage === 0}
+          >
+            ⬅ Página Anterior
+          </button>
+          
+          <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
+          
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
+            disabled={endIndex >= data.length}
+          >
+            Próxima Página ➡
+          </button>
         </div>
-        <div className="footer">
-          <p>Todos os direitos reservados - Versão 1.0</p>
+
+        <div className="buttonContainer">
+          <ButtonV label="+ Adicionar" onClick={handleAddProduct} />
         </div>
       </div>
     </div>
   );
 };
 
-export default TabelaAdd;
+export default TabelaA;
+
+
