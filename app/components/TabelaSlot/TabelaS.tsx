@@ -18,6 +18,7 @@ interface TabelaSProps {
   slotId?: number;    
 }
 
+
 const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', slotText = 'Slot', slotId }) => {
   console.log("📊 Dados recebidos pela TabelaS:", data); 
 
@@ -37,11 +38,11 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
             &times;
           </button>
         </div>
-
+  
         <div className="tableContainer">
           <div className="tableWrapper">
             <div className="sideText">{slotText} {slotId ?? 'N/A'}</div>
-            
+  
             <table className="table">
               <thead>
                 <tr>
@@ -68,31 +69,32 @@ const TabelaS: React.FC<TabelaSProps> = ({ onClose, data, title = 'Prateleira', 
                 )}
               </tbody>
             </table>
-
           </div>
-          <div className="pagination">
-              <button 
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
-                disabled={currentPage === 0}
-              >
-                ⬅ Página Anterior
-              </button>
-              
-              <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
-              
-              <button 
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
-                disabled={endIndex >= data.length}
-              >
-                Próxima Página ➡
-              </button>
-            </div>
         </div>
-
-        <Footer/>
+  
+        <div className="pagination">
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+            disabled={currentPage === 0}
+          >
+            ⬅ Página Anterior
+          </button>
+          
+          <span>Página {currentPage + 1} de {Math.ceil(data.length / itemsPerPage)}</span>
+          
+          <button 
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(data.length / itemsPerPage)))} 
+            disabled={endIndex >= data.length}
+          >
+            Próxima Página ➡
+          </button>
+        </div>
+  
+        <Footer />
       </div>
     </div>
   );
+  
 };
 
 export default TabelaS;

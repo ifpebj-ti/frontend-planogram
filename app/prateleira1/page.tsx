@@ -6,7 +6,6 @@ import SideNavBar from "../components/SideNavBar";
 import { useSearchParams, useRouter } from 'next/navigation';
 import { api } from '../services/api';
 
-import { FaRegCopyright } from 'react-icons/fa';
 import Button from '../components/Button/Button';
 import IndicatorBox from '../components/IndicatorBox/IndicatorBox';
 import LegendBox from '../components/LegendBox/LegendBox';
@@ -24,97 +23,90 @@ interface Category {
   id_prateleira: number;
 }
 
-interface UserData {
-  id: number;
-  nome: string;
-  email: string;
-  categorias: Category[];
-}
-
-
 function PrateleiraContent() {
   const searchParams = useSearchParams();
   const prateleiraId = searchParams.get('id');
   const router = useRouter();
 
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
+  const [isTableOpen, setIsTableOpen] = useState(false);
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [shelfData, setShelfData] = useState<any[]>([]);
+  const [isShelfTableOpen, setIsShelfTableOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (prateleiraId) {
       const fetchCategories = async () => {
         try {
-          const response = await api.get<UserData>(`users/1`);
-          console.log("📦 Dados do usuário:", response);
-
+          const response = await api.get<{ categorias: Category[] }>(`users/1`);
           const filteredCategories = response.categorias.filter(cat => cat.id_prateleira === Number(prateleiraId));
           setCategories(filteredCategories);
-
         } catch (error) {
           console.error("Erro ao carregar categorias:", error);
         }
       };
-
       fetchCategories();
     }
   }, [prateleiraId]);
 
-  const [selectedSlot, setSelectedSlot] = useState<number | undefined>(undefined);
-  const [isTableOpen, setIsTableOpen] = useState(false);
-  const [tableData, setTableData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [totalProdutos, setTotalProdutos] = useState(0);
+
+  useEffect(() => {
+    const fetchTotalProdutos = async () => {
+      try {
+        const total = await api.getTotalProdutos(); 
+        setTotalProdutos(total);
+      } catch (error) {
+        console.error("❌ Erro ao buscar total de produtos:", error);
+      }
+    };
+
+    fetchTotalProdutos();
+  }, []);
+
 
   const fetchProductsBySlot = async (slotId: number) => {
     setLoading(true);
     setSelectedSlot(slotId);
     try {
-      console.log(`🔍 Buscando produtos para slot ID: ${slotId}`);
-  
       const response = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${slotId}/detalhados`);
-      console.log("📦 Produtos carregados:", response);
-  
+
       if (!response || response.length === 0) {
-        console.warn("⚠️ Nenhum produto encontrado.");
         alert("Nenhum produto disponível neste slot.");
         return;
       }
-  
+
       setTableData(response);
       setIsTableOpen(true);
-  
-      console.log("✅ isTableOpen foi atualizado para TRUE!");
     } catch (error) {
-      console.error("❌ Erro ao buscar produtos:", error);
       alert("Erro ao carregar os produtos.");
     } finally {
       setLoading(false);
     }
   };
-  
 
+  const fetchProductsByShelf = async () => {
+    if (!prateleiraId) return;
 
-  const handleRedirect = () => {
-    router.push(`/prateleira1/EditPla?id=${prateleiraId}`);
+    setLoading(true);
+    try {
+      const response = await api.getProductsByShelf(Number(prateleiraId));
+
+      if (!response || response.length === 0) {
+        alert("Nenhum produto disponível nesta prateleira.");
+        return;
+      }
+
+      setShelfData(response);
+      setIsShelfTableOpen(true);
+    } catch (error) {
+      alert("Erro ao carregar os produtos.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCloseTable = () => {
-    setIsTableOpen(false);
-  };
-
-  
-  const groupedCategories: Category[][] = [];
-  for (let i = 0; i < categories.length; i += 4) {
-    groupedCategories.push(categories.slice(i, i + 4));
-  }
 
   return (
     <div className='total'>
@@ -145,74 +137,45 @@ function PrateleiraContent() {
               }}
             >
               <div className="category-buttons-container">
-              {categories.length > 0 ? (
-                categories.reduce((acc, slot, index) => {
-                  if (index % 4 === 0) acc.push([]);
-                  acc[acc.length - 1].push(slot);
-                  return acc;
-                }, [] as Category[][]).map((row, rowIndex) => (
-                  <div key={rowIndex} style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
-                    {row.map((slot) => (
-                      <Button
-                        key={slot.id}
-                        textobotao={slot.nome}
-                        corDeFundo="#A8F0A4"
-                        pressione={() => {
-                          console.log(`🖱️ Botão do slot ${slot.id} clicado!`);
-                          fetchProductsBySlot(slot.id);
-                        }}
-                      />
-                    ))}
-                  </div>
-                ))
-              ) : (
-                <p style={{ color: "red" }}>Nenhum slot disponível</p>
-              )}
-
+                {categories.length > 0 ? (
+                  categories.map((slot) => (
+                    <Button
+                      key={slot.id}
+                      textobotao={slot.nome}
+                      corDeFundo="#A8F0A4"
+                      pressione={() => fetchProductsBySlot(slot.id)}
+                    />
+                  ))
+                ) : (
+                  <p style={{ color: "red" }}>Nenhum slot disponível</p>
+                )}
               </div>
+
             </div>
-            <div 
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '20px',
-                backgroundColor: '#EFF0F0',
-                padding: '20px',
-              }}>
-              
-              <div className="flex justify-center items-center h-screen bg-gray-100 m-4">
-                <ButtonV label="Visualizar" onClick={handleOpenModal} />
-                <ButtonV label="Editar" onClick={handleRedirect} />
+
+            <div className="info-panel">
+              <div className="button-group">
+                  <ButtonV label="Visualizar" onClick={fetchProductsByShelf} />
+                  <ButtonV label="Editar" onClick={() => router.push(`/prateleira1/EditPla?id=${prateleiraId}`)} />
               </div>
 
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <IndicatorBox title="Total de slots" value={categories.length} />
-                <IndicatorBox title="Total de produtos" value={tableData.length} />
+              <div className="indicator-group">
+                  <IndicatorBox title="Total de slots" value={categories.length} />
+                  <IndicatorBox title="Total de produtos" value={totalProdutos} />
               </div>
 
               <LegendBox />
 
-              {isModalOpen && <TabelaV onClose={handleCloseModal} />}
-              {isTableOpen && (
-                <TabelaS
-                  onClose={() => setIsTableOpen(false)}
-                  data={tableData}
-                  title={`Prateleira ${prateleiraId}`}
-                  slotText="Slot"
-                  slotId={selectedSlot ?? undefined} 
-                />
-              )}
+              {isShelfTableOpen && <TabelaV onClose={() => setIsShelfTableOpen(false)} data={shelfData} title={`Prateleira ${prateleiraId}`} />}
+              {isTableOpen && <TabelaS onClose={() => setIsTableOpen(false)} data={tableData} title="Slot" slotId={selectedSlot} />}
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );
 }
-
 
 export default function Prateleira() {
   return (
