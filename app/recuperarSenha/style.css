@@ -1,121 +1,136 @@
 .recuperar-senha-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start; 
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #21557A, #85CFA5);
-    padding-top: 60px;
-    padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start; 
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #21557A, #85CFA5);
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
-  
+
 .recuperar-senha-card {
-    display: flex;
-    width: 700px;
-    height: 400px;
-    max-width: 90%; 
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: auto; 
+  display: flex;
+  width: 700px;
+  height: 400px;
+  max-width: 90%; 
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: auto; 
 }
-  
+
 .recuperar-senha-image {
-    flex: 1;
-    background: url('/pharmacy-background.png') center/cover no-repeat;
-    display: none;
+  flex: 1;
+  background: url('/pharmacy-background.png') center/cover no-repeat;
+  display: none;
 }
 
 @media (min-width: 1024px) {
-    .recuperar-senha-image {
-      display: block;
-    }
+  .recuperar-senha-image {
+    display: block;
+  }
 }
-  
+
 .recuperar-senha-content {
-    flex: 1;
-    padding: 24px 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  max-height: 400px; 
+  overflow-y: auto; 
+  scrollbar-width: thin; 
+  scrollbar-color: #ccc #f0f0f0; 
+}
+
+.recuperar-senha-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recuperar-senha-content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.recuperar-senha-content::-webkit-scrollbar-track {
+  background: #f0f0f0;
 }
 
 .recuperar-senha-title {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #002135;
-    margin-bottom: 16px;
-    font-weight: bold;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #002135;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 100px;
 }
 
 .recuperar-senha-subtext {
-    text-align: center;
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 15px;
 }
 
 .recuperar-senha-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
 }
 
-label {
-    font-size: 0.875rem;
-    color: #555;
+.recuperar-senha-form label {
+  font-size: 0.85rem;
+  color: #333;
+  align-self: flex-start;
 }
 
-input {
-    padding: 10px 12px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%; 
+.recuperar-senha-form input {
+  width: 100%;
+  padding: 6px 8px; 
+  font-size: 0.85rem;
+  height: 32px; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .btn {
-    padding: 10px 30px; 
-    border-radius: 8px;
-    font-size: 1rem; 
-    cursor: pointer;
-    transition: background 0.3s ease;
+  padding: 6px 12px; 
+  font-size: 0.85rem; 
+  min-width: 85px; 
+  height: 32px; 
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
 }
 
 .btn-primary {
-    background: #21557A;
-    color: white;
-    border: none;
-}
-
-.btn-primary:hover {
-    background: #16468a;
+  background: #21557A;
+  color: white;
 }
 
 .btn-secondary {
-    background: #ccc;
-    color: black;
-    border: none;
-}
-
-.btn-secondary:hover {
-    background: #bbb;
+  background: #ccc;
+  color: black;
 }
 
 .recuperar-senha-footer {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #002135;
-    margin-top: auto; 
-    padding: 16px 0px;
-    width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #002135;
+  margin-top: 10px;
+  padding: 10px 0;
+  width: 100%;
 }
+
+  
