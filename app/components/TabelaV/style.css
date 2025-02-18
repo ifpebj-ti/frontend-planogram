@@ -1,6 +1,5 @@
 
 .container {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -22,6 +21,7 @@
     overflow: hidden;
     animation: slideDown 0.3s ease-out;
     justify-items: center;
+    margin: 5%;
   }
   
   @keyframes slideDown {
@@ -60,6 +60,9 @@
     justify-content: flex-end;
     cursor: pointer;
     left: 100%;
+  }
+  .closeButton button:hover {
+    background-color: #505659;
   }
   
   .tableContainer {

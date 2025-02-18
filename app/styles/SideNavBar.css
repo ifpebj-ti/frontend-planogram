@@ -1,23 +1,27 @@
+:root {
+  --principal: #21557a;
+  --selecionado: #1b4b6d;
+  --branco: #ffffff;
+}
+
 .sidenav {
-  width: 60px; 
+  width: 60px;
   background-color: var(--principal);
   color: white;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; 
-  transition: width 0.3s;
-  overflow: hidden;
+  transition: width 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 1rem;
+  overflow-x: hidden;
 }
 
 .sidenav.expanded {
-  width: 200px;
-  background-color: #21557A; 
+  width: 220px;
 }
 
 .toggle-button {
@@ -26,83 +30,68 @@
   color: white;
   cursor: pointer;
   margin-bottom: 1.5rem;
-  z-index: 1001; 
 }
 
 .menu-content {
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center; 
+  align-items: flex-start;
 }
-
-
-.icon {
-  margin-right: 0.5rem; 
-  width: 24px;
-  height: 24px;
-}
-
-
-.menu-item span {
-  font-size: 1rem;
-  display: inline-block;
-}
-
 
 .menu-item {
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   padding: 1rem;
-  color: white;
-  text-decoration: none;
   width: 100%;
   transition: background-color 0.3s, color 0.3s;
 }
 
-
 .menu-item:hover {
   background-color: var(--selecionado);
-  color: black; 
+  color: black;
 }
 
-
 .menu-item .icon {
-  margin-right: 0.5rem; 
-  transition: transform 0.3s ease, color 0.3s ease;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  transition: transform 0.3s ease;
 }
 
 .menu-item:hover .icon {
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
 
-
-.sidenav.expanded .menu-item {
-  flex-direction: row; 
-  justify-content: flex-start;
-  align-items: center; 
+.show-text {
+  display: inline;
+  font-size: 1rem;
 }
 
-
-.sidenav:not(.expanded) .menu-item span {
+.hide-text {
   display: none;
 }
 
-
 .sidenav.expanded .menu-item span {
-  display: inline-block; 
-  margin-left: 0.5rem;
+  display: inline;
 }
 
+/* Ajustando o layout para recuar a tela ao expandir o menu */
+.main-content {
+  margin-left: 60px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sidenav.expanded ~ .main-content {
+  margin-left: 220px;
+}
 
 @media (max-width: 768px) {
   .sidenav {
-    transform: translateX(0%);
-    transition: transform 0.3s ease;
+    width: 60px;
   }
-  
-  .sidenav-open {
-    transform: translateX(0);
+
+  .sidenav.expanded {
+    width: 220px;
   }
 }

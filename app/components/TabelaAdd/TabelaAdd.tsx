@@ -25,22 +25,24 @@ const TabelaA: React.FC<TabelaAProps> = ({ onClose, categoryId }) => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!categoryId) return; 
+    setLoading(true);
+
     const fetchProducts = async () => {
-      if (!categoryId) return;
-      setLoading(true);
       try {
-        const response = await api.get<Product[]>(`produtos/categoria/${categoryId}/detalhados`);
+        const response = await api.getProductsByShelfId(categoryId);
         console.log("📦 Produtos carregados:", response);
         setData(response);
       } catch (error) {
         console.error("❌ Erro ao buscar produtos:", error);
+        setData([]); 
       } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId]); 
 
   const handleAddProduct = () => {
     router.push("/importar"); 
@@ -59,7 +61,7 @@ const TabelaA: React.FC<TabelaAProps> = ({ onClose, categoryId }) => {
             &times;
           </button>
         </div>
-        <h1>Produtos da Categoria</h1>
+        <h1>Produtos da Prateleira</h1>
 
         <div className="tableContainer">
           {loading ? (
@@ -69,13 +71,13 @@ const TabelaA: React.FC<TabelaAProps> = ({ onClose, categoryId }) => {
               <thead>
                 <tr>
                   <th>Produto</th>
-                  <th>Qntd.</th>
+                  <th>Quantidade</th>
                 </tr>
               </thead>
               <tbody>
                 {paginatedData.length > 0 ? (
                   paginatedData.map((item, index) => (
-                    <tr key={index}>
+                    <tr key={`${item.produto}-${index}`}> 
                       <td>{item.produto}</td>
                       <td>{item.quantidade}</td>
                     </tr>
@@ -119,5 +121,6 @@ const TabelaA: React.FC<TabelaAProps> = ({ onClose, categoryId }) => {
 };
 
 export default TabelaA;
+
 
 

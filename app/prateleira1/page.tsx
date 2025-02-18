@@ -21,7 +21,9 @@ interface Category {
   id: number;
   nome: string;
   id_prateleira: number;
+  saida: number; 
 }
+
 
 function PrateleiraContent() {
   const searchParams = useSearchParams();
@@ -41,8 +43,26 @@ function PrateleiraContent() {
       const fetchCategories = async () => {
         try {
           const response = await api.get<{ categorias: Category[] }>(`users/1`);
-          const filteredCategories = response.categorias.filter(cat => cat.id_prateleira === Number(prateleiraId));
-          setCategories(filteredCategories);
+          let updatedCategories = response.categorias.filter(cat => cat.id_prateleira === Number(prateleiraId));
+  
+          
+          const categoriesWithSaida = await Promise.all(
+            updatedCategories.map(async (category) => {
+              try {
+                const products = await api.get<{ produto: string; quantidade: number; saida: number }[]>(`produtos/categoria/${category.id}/detalhados`);
+                
+                
+                const totalSaida = products.reduce((acc, item) => acc + item.saida, 0);
+                
+                return { ...category, saida: totalSaida };
+              } catch (error) {
+                console.error(`❌ Erro ao buscar produtos da categoria ${category.id}:`, error);
+                return { ...category, saida: 0 };
+              }
+            })
+          );
+  
+          setCategories(categoriesWithSaida);
         } catch (error) {
           console.error("Erro ao carregar categorias:", error);
         }
@@ -50,6 +70,7 @@ function PrateleiraContent() {
       fetchCategories();
     }
   }, [prateleiraId]);
+  
 
   const [totalProdutos, setTotalProdutos] = useState(0);
 
@@ -138,25 +159,33 @@ function PrateleiraContent() {
             >
               <div className="category-buttons-container">
                 {categories.length > 0 ? (
-                  categories.map((slot) => (
-                    <Button
-                      key={slot.id}
-                      textobotao={slot.nome}
-                      corDeFundo="#A8F0A4"
-                      pressione={() => fetchProductsBySlot(slot.id)}
-                    />
-                  ))
+                  categories.map((slot) => {
+                    
+                    const corDeFundo =
+                      slot.saida >= 50 ? "#A8F0A4" : slot.saida >= 5? "#FFD700" : "#FF4C4C";
+
+                    return (
+                      <Button
+                        key={slot.id}
+                        textobotao={slot.nome}
+                        corDeFundo={corDeFundo}
+                        pressione={() => fetchProductsBySlot(slot.id)}
+                      />
+                    );
+                  })
                 ) : (
                   <p style={{ color: "red" }}>Nenhum slot disponível</p>
                 )}
               </div>
+
 
             </div>
 
             <div className="info-panel">
               <div className="button-group">
                   <ButtonV label="Visualizar" onClick={fetchProductsByShelf} />
-                  <ButtonV label="Editar" onClick={() => router.push(`/prateleira1/EditPla?id=${prateleiraId}`)} />
+                  {/*<ButtonV label="Editar" onClick={() => router.push(`/prateleira1/EditPla?id=${prateleiraId}`)} />*/}
+                  <ButtonV label="Adicionar" onClick={() => router.push(`/importar`)} />
               </div>
 
               <div className="indicator-group">

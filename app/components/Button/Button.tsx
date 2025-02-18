@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type ButtonProps = {
-  textobotao: string;
+  textobotao: string| JSX.Element;
   pressione: () => void;
   corDeFundo: string; 
 };
