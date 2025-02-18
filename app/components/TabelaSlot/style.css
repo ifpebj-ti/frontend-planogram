@@ -20,7 +20,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   animation: slideDown 0.3s ease-out;
   overflow: hidden;
-  padding-bottom: 1rem;
+  margin: 5%;
   height: 90%;
   max-height: 500px;
 }
@@ -49,6 +49,9 @@
   color: #859093;
   font-size: 2rem;
   cursor: pointer;
+}
+.closeButton button:hover {
+  background-color: #7c8284;
 }
 
 .tableWrapper {

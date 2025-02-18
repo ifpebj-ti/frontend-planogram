@@ -1,5 +1,8 @@
 
-const API_URL="https://backplanograma.website";
+//const API_URL="https://backplanograma.website";
+const API_URL="http://localhost:8080";
+
+import { jwtDecode } from "jwt-decode";
 
 export const api = {
   async get<T>(endpoint: string): Promise<T> {
@@ -78,19 +81,35 @@ export const api = {
       });
   
       if (!res.ok) {
+        console.error(`❌ Erro ao fazer login: ${res.status} - ${res.statusText}`);
         throw new Error("Credenciais inválidas");
       }
   
       const data = await res.json();
-      console.log("Token recebido:", data.token);
-      console.log("Dados do usuário:", data);
+      console.log("🔐 Token recebido:", data.token);
+      console.log("👤 Nível de acesso:", data.nivel_de_acesso);
   
+      const decodedToken: { id: number; nivel_de_acesso: string } = jwtDecode(data.token);
+      console.log("📌 Dados extraídos do token:", decodedToken);
+  
+      if (!decodedToken.id) {
+        console.error("❌ Erro: ID do usuário não encontrado no token");
+        throw new Error("Erro ao autenticar usuário.");
+      }
+  
+      
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify({ id: data.id, nome: data.nome, email: data.email, nivel_de_acesso: data.nivel_de_acesso }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: decodedToken.id,
+          nivel_de_acesso: data.nivel_de_acesso,
+        })
+      );
   
       return data.token;
     } catch (error) {
-      console.error("Erro no login:", error);
+      console.error("❌ Erro no login:", error);
       return null;
     }
   },
@@ -269,31 +288,72 @@ export const api = {
         console.error("❌ Erro ao buscar produtos detalhados:", error);
         throw error;
     }
-},
-async getTotalProdutos(): Promise<number> {
-  try {
-    const response = await api.get<{ total: number }>("produtos/total");
+  },
+  async getTotalProdutos(): Promise<number> {
+    try {
+      const response = await api.get<{ total: number }>("produtos/total");
 
-    console.log("📦 Total de produtos recebidos:", response.total);
+      console.log("📦 Total de produtos recebidos:", response.total);
 
-    return response.total;
-  } catch (error) {
-    console.error("❌ Erro ao buscar total de produtos:", error);
-    return 0; 
-  }
-},
+      return response.total;
+    } catch (error) {
+      console.error("❌ Erro ao buscar total de produtos:", error);
+      return 0; 
+    }
+  },
 
-async getAllCategories(): Promise<{ id: number; nome: string }[]> {
-  try {
-    console.log("📡 Buscando todas as categorias...");
-    const response = await api.get<{ id: number; nome: string }[]>("categories");
-    console.log("📦 Categorias carregadas:", response);
-    return response;
-  } catch (error) {
-    console.error("❌ Erro ao buscar categorias:", error);
-    return [];
-  }
-},
+  async getAllCategories(): Promise<{ id: number; nome: string }[]> {
+    try {
+      console.log("📡 Buscando todas as categorias...");
+      const response = await api.get<{ id: number; nome: string }[]>("categories");
+      console.log("📦 Categorias carregadas:", response);
+      return response;
+    } catch (error) {
+      console.error("❌ Erro ao buscar categorias:", error);
+      return [];
+    }
+  },
+  async delete<T>(endpoint: string): Promise<T> {
+    const token = localStorage.getItem("token");
+  
+    const res = await fetch(`${API_URL}/${endpoint}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    const errorText = await res.text(); 
+  
+    if (!res.ok) {
+      console.error(`❌ Erro ao excluir (${res.status}):`, errorText);
+      throw new Error(`Erro ao excluir: ${errorText}`);
+    }
+  
+    return res.json();
+  },
+  async getProductsByShelfId(shelfId: number): Promise<{ cod_slot: string; produto: string; quantidade: number}[]> {
+    try {
+        console.log(`📡 Buscando produtos detalhados da prateleira ID: ${shelfId}`);
+
+        const response = await api.get<{ cod_slot: string; produto: string; quantidade: number | null}[]>(
+            `shelves/${shelfId}/produtos/detalhado`
+        );
+
+        const formattedData = response.map(item => ({
+            cod_slot: String(item.cod_slot), 
+            produto: item.produto,
+            quantidade: item.quantidade ?? 0, 
+           
+        }));
+
+        console.log("📦 Produtos processados:", formattedData);
+        return formattedData;
+    } catch (error) {
+        console.error("❌ Erro ao buscar produtos detalhados:", error);
+        throw error;
+    }
+  },
 
   
   

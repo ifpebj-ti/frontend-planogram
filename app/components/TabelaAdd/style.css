@@ -1,27 +1,28 @@
 
 .container {
-  position: fixed;
-  inset: 0; 
-  width: 100vw; 
-  height: 100vh; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(200, 200, 200, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
-
+  
+  
   .card {
     width: 100%;
     max-width: 800px;
-    height: 500px;
     background-color: #EFF0F0;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     animation: slideDown 0.3s ease-out;
+    justify-items: center;
   }
-
+  
   @keyframes slideDown {
     from {
       transform: translateY(-20px);
@@ -35,77 +36,50 @@
   
 
   .header {
+    background-color: transparent; 
+    color: white;
+    padding: 1rem;
+    font-size: 1.25rem;
     display: flex;
-    justify-content: flex-end; 
+    justify-content: space-between;
     align-items: center;
-    padding-right: 1rem;
     position: relative;
+  }
+  
+  .headerTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
   }
   
   .closeButton {
     background: none;
     border: none;
-    color: #004d66;
-    font-size: 3rem; 
-    cursor: pointer;
-    margin-left: auto; 
-  }
-  .card h1 {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    color: #4c5558;
-  }
-  
-  .headerTitle {
+    color: #717a7d;
     font-size: 3rem;
-    font-weight: bold;
+    justify-content: flex-end;
+    cursor: pointer;
+    left: 100%;
+  }
+  .closeButton button:hover {
+    background-color: #7c8284;
   }
   
   .tableContainer {
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .tableContainer {
-    padding-top: 0.5rem;
     overflow-x: auto;
-    max-height: 400px; 
-    overflow-y: auto;
+    padding: 0.5rem;
+    background-color: transparent;
+    width: 700px;
+
   }
   
   .table {
     width: 100%;
+    border-collapse: collapse;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 10px;
+    border-radius: 15px; 
     overflow: hidden;
-    background-color: #ffffff;
   }
-  
-  .table thead tr {
-    background-color: #004d66;
-    color: white;
-    text-transform: uppercase;
-    font-size: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.75rem;
-    text-align: center;
-    border: 1px solid #e0f2f1;
-  }
-  
-  .table tbody tr {
-    background-color: #a5ebcc;
-  }
-  
   
   .tableHead {
     background-color: #21557A;
@@ -122,12 +96,7 @@
   .rowOdd {
     background-color: #a5ebcc;
   }
-  .buttonContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem; 
-  }
+
   .pagination {
     display: flex;
     justify-content: center;
@@ -163,6 +132,12 @@
     color: #004d66;
   }
   
+  .tabela-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #004d66;
+    margin-bottom: 20px;
+  }
   
  
 
