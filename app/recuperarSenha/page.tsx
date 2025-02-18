@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./style.css";
+import { api } from "../services/api";
 
 export default function ResetSenha() {
   const [email, setEmail] = useState("");
@@ -24,22 +25,7 @@ export default function ResetSenha() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/users/recuperar-senha", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          novaSenha: newPassword,
-          confirmarSenha: confirmPassword,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao redefinir a senha. Verifique os dados informados.");
-      }
-
+      await api.recuperarSenha(email, newPassword, confirmPassword);
       alert("✅ Senha redefinida com sucesso!");
       router.push("/login");
     } catch (err: any) {

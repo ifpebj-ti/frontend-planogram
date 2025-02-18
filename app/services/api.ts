@@ -173,6 +173,29 @@ export const api = {
       throw error;
     }
   },
+  async recuperarSenha(email: string, novaSenha: string, confirmarSenha: string) {
+    try {
+      const res = await fetch(`${API_URL}/users/recuperar-senha`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, novaSenha, confirmarSenha }),
+      });
+  
+      if (!res.ok) {
+        console.error("❌ Erro ao redefinir senha:", res.status, res.statusText);
+        throw new Error("Erro ao redefinir a senha. Verifique os dados informados.");
+      }
+  
+      console.log("✅ Senha redefinida com sucesso!");
+      return true;
+    } catch (error) {
+      console.error("❌ Erro na recuperação de senha:", error);
+      throw error;
+    }
+  },
+  
 
   // ============================ PRATELEIRAS ============================
 
