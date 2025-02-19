@@ -1,11 +1,11 @@
 :root {
   --principal: #21557a;
-  --selecionado: #1b4b6d;
-  --branco: #ffffff;
+  --selecionado: #f5f5f5;
+  --branco: #21557a;
 }
 
 .sidenav {
-  width: 60px;
+  width: 80px;
   background-color: var(--principal);
   color: white;
   height: 100vh;
@@ -45,6 +45,7 @@
   padding: 1rem;
   width: 100%;
   transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
 }
 
 .menu-item:hover {
@@ -53,14 +54,23 @@
 }
 
 .menu-item .icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 12px;
+  width: 30px;
+  height: 30px;
   transition: transform 0.3s ease;
+  margin-right: 0.5rem;
 }
 
 .menu-item:hover .icon {
   transform: scale(1.1);
+}
+.menu-item.active {
+  background-color: var(--selecionado);
+  color: var(--branco);
+  font-weight: bold;
+}
+
+.link-icon{
+  align-items: flex-end;
 }
 
 .show-text {
@@ -76,7 +86,6 @@
   display: inline;
 }
 
-/* Ajustando o layout para recuar a tela ao expandir o menu */
 .main-content {
   margin-left: 60px;
   transition: margin-left 0.3s ease-in-out;

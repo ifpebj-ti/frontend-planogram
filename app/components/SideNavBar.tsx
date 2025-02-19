@@ -5,10 +5,12 @@ import Image from "next/image";
 import { FaHome, FaFileImport, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import "../styles/SideNavBar.css";
+import { usePathname } from "next/navigation";
 
 export default function SideNavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -29,13 +31,13 @@ export default function SideNavBar() {
         />
       </button>
       <div className="menu-content">
-        <div className="menu-item">
-          <Link href="/estantes">
+        <div className={`menu-item ${pathname === "/estantes" ? "active" : ""}`}>
+          <Link href="/estantes" className="link-icon">
             <FaHome size={24} className="icon" />
             <span className={isOpen ? "show-text" : "hide-text"}>Início</span>
           </Link>
         </div>
-        <div className="menu-item">
+        <div className={`menu-item ${pathname === "/importar" ? "active" : ""}`}>
           <Link href="/importar">
             <FaFileImport size={24} className="icon" />
             <span className={isOpen ? "show-text" : "hide-text"}>Importar</span>
@@ -43,7 +45,7 @@ export default function SideNavBar() {
         </div>
 
         {userRole === "admin" && (
-          <div className="menu-item">
+          <div className={`menu-item ${pathname === "/gerenUser" ? "active" : ""}`}>
             <Link href="/gerenUser">
               <IoPerson size={24} className="icon" />
               <span className={isOpen ? "show-text" : "hide-text"}>Perfil</span>
@@ -51,15 +53,13 @@ export default function SideNavBar() {
           </div>
         )}
 
-        <div className="menu-item">
+        <div className={`menu-item ${pathname === "/configuracao" ? "active" : ""}`}>
           <Link href="/configuracao">
             <FaCog size={24} className="icon" />
-            <span className={isOpen ? "show-text" : "hide-text"}>
-              Configurações
-            </span>
+            <span className={isOpen ? "show-text" : "hide-text"}>Configurações</span>
           </Link>
         </div>
-        <div className="menu-item">
+        <div className={`menu-item ${pathname === "/sair" ? "active" : ""}`}>
           <Link href="/sair">
             <FaSignOutAlt size={24} className="icon" />
             <span className={isOpen ? "show-text" : "hide-text"}>Sair</span>
